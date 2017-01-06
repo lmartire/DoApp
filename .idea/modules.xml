@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/DoApp.iml" filepath="$PROJECT_DIR$/DoApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apk-parser-1.0.2/apk-parser-1.0.2.iml" filepath="$PROJECT_DIR$/apk-parser-1.0.2/apk-parser-1.0.2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+    </modules>
+  </component>
+</project>
