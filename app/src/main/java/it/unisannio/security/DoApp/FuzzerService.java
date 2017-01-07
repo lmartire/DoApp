@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
+import it.unisannio.security.DoApp.model.Commons;
 import it.unisannio.security.DoApp.model.ExceptionReport;
 import it.unisannio.security.DoApp.model.LogCatMessage;
 import it.unisannio.security.DoApp.model.MalIntent;
@@ -33,7 +34,7 @@ public class FuzzerService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
             //estraggo il nome dell'app su cui fare fuzzing
-            String pkgname = intent.getStringExtra("pkgname");
+            String pkgname = intent.getStringExtra(Commons.pkgName);
             if(pkgname!=null && !pkgname.isEmpty()) {
                 fuzz(pkgname);
 

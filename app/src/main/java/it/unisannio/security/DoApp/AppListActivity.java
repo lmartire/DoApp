@@ -8,10 +8,12 @@ package it.unisannio.security.DoApp;
  *
  */
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -85,8 +87,10 @@ public class AppListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO Auto-generated method stub
                 AppInfo appInfo = (AppInfo) appInfoAdapter.getItem(position);
-
-                Toast.makeText(AppListActivity.this,"SONO STATO CLICCATO",Toast.LENGTH_LONG).show();
+                Intent i = new Intent(AppListActivity.this, FuzzerService.class);
+                String pkg = appInfo.getPackageName();
+                i.putExtra(Commons.pkgName, pkg);
+                startService(i);
             }
 
         });

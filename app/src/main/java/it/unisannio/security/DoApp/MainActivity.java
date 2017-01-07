@@ -8,6 +8,8 @@ import android.view.View;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import it.unisannio.security.DoApp.model.Commons;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, FuzzerService.class);
 
         //TODO: sta roba deve venire da una lista di scelta dell'app
-        i.putExtra("pkgname", "com.project.antonyflour.intentfilterex");
+        i.putExtra(Commons.pkgName, "com.project.antonyflour.intentfilterex");
         startService(i);
 
     }

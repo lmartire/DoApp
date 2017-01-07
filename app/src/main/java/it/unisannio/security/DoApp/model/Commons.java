@@ -19,4 +19,5 @@ public class Commons {
 
     public static final String PKGINFO_KEY = "pkginfo";
     public static final String APPTYPE_KEY = "apptype";
+    public static final String pkgName = "pkgname";
 }
