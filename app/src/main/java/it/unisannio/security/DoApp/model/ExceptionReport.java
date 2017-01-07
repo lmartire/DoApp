@@ -5,6 +5,7 @@ package it.unisannio.security.DoApp.model;
  */
 
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Stack;
 
@@ -16,6 +17,7 @@ public class ExceptionReport {
 
     private String appName;
     private int PID;
+    private Date time;
     private String type;
     private Stack<PointOfFailure> stacktrace;
 
@@ -37,6 +39,14 @@ public class ExceptionReport {
 
     public void setPID(int PID) {
         this.PID = PID;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 
     public String getType() {

@@ -1,10 +1,15 @@
 package it.unisannio.security.DoApp.parser;
 
+import android.util.Log;
+
 import it.unisannio.security.DoApp.model.ExceptionReport;
 import it.unisannio.security.DoApp.model.LogCatMessage;
 import it.unisannio.security.DoApp.model.PointOfFailure;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -44,6 +49,18 @@ public class MessagesFilter {
             //encountered FATAL EXCEPTION message
             if(m.getMessage().contains("FATAL EXCEPTION")){
                 exceptionReport = new ExceptionReport();
+
+
+                SimpleDateFormat formatter = new SimpleDateFormat("MM-dd HH:mm:ss.SSS");
+                Date messageTime = null;
+                try {
+                    messageTime = formatter.parse(m.getTime());
+                    exceptionReport.setTime(messageTime);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Log.i("*DEBUG", messageTime.toString());
 
                 //pid = -1 if impossible to find
                 int pid;
@@ -95,7 +112,7 @@ public class MessagesFilter {
      * @return component name
      */
     public static String extractComponent(String message){
-        if(!message.contains("ComponentInfo")) return null;
+        if(!message.contains("ComponentInfo")) return "null";
         int start = message.indexOf('/')+1;
         int stop = message.lastIndexOf('}');
         return message.substring(start,stop);
@@ -134,7 +151,7 @@ public class MessagesFilter {
      */
     public static String extractExceptionType(String message){
         int start = message.indexOf(':')+2;
-        int stop = message.lastIndexOf(':');
+        int stop = message.indexOf(':', start);
         return message.substring(start,stop);
     }
 }

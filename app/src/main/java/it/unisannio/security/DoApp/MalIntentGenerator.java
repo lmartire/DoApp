@@ -27,6 +27,7 @@ public class MalIntentGenerator {
         intents.add(i1);
 
         MalIntent i2 = new MalIntent(datas.get(0).getPackageName(), datas.get(0).getComponent());
+        i2.setType("int");
         intents.add(i2);
 
         return intents;

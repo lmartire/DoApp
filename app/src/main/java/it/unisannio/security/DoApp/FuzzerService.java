@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class FuzzerService extends IntentService {
@@ -35,6 +36,18 @@ public class FuzzerService extends IntentService {
             String pkgname = intent.getStringExtra("pkgname");
             if(pkgname!=null && !pkgname.isEmpty()) {
                 fuzz(pkgname);
+
+
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                //avvio l'activity finale
+                Intent end = new Intent(this, EndActivity.class);
+                end.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(end);
             }
         }
     }
@@ -58,6 +71,9 @@ public class FuzzerService extends IntentService {
         Log.i("*DEBUG", "Intent creati, inizio il fuzzing");
 
         int num=0;
+
+        //usato come spareggio se il PID dell'app è uguale ad una Exception già analizzata
+        Date lastTime = null;
 
         //invio uno alla volta gli intent
         for(MalIntent i : malIntents){
@@ -122,11 +138,14 @@ public class FuzzerService extends IntentService {
                 Log.i("*DEBUG", ex.toString());
 
                 if(ex.getAppName().contains(pkgname) && (ex.getPID() == appPid)){
-                    Log.i("*DEBUG", "Aggiungo il report n. "+num2);
-                    results.add(ex);
+                    if(lastTime==null || (ex.getTime().after(lastTime))) {
+                        Log.i("*DEBUG", "Aggiungo il report n. " + num2);
+                        results.add(ex);
 
-                    Log.i("*DEBUG", "killo l'app");
-                    killApp(appPid);
+                        Log.i("*DEBUG", "killo l'app");
+                        killApp(appPid);
+                        lastTime = ex.getTime();
+                    }
 
                 }
             }
