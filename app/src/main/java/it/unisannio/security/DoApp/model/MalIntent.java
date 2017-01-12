@@ -16,7 +16,12 @@ public class MalIntent extends Intent{
     public MalIntent(String packageName, AndroidComponent targetComponent){
         super();
         this.targetComponent = targetComponent;
-        this.setComponent(new ComponentName(packageName, targetComponent.name));
+
+        String name = targetComponent.name;
+        if(name.startsWith(".")){
+            name.substring(1);
+        }
+        this.setComponent(new ComponentName(packageName, name));
     }
 
     public AndroidComponent getTargetComponent() {

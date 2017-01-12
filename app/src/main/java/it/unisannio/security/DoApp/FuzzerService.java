@@ -105,7 +105,7 @@ public class FuzzerService extends IntentService {
                 }
             }
             catch(ActivityNotFoundException e){
-                Log.e("ERROR", "ActivityNotFoundException "+ i.getComponent().getClassName());
+                e.printStackTrace();
             }
             catch (SecurityException se){
                 Log.e("ERROR", "SecurityException: "+ i.getComponent().getClassName());
@@ -133,7 +133,7 @@ public class FuzzerService extends IntentService {
             //analizzo i messaggi alla ricerca di FATAL EXCEPTION
             List<ExceptionReport> reports = MessagesFilter.filterByFatalException(messages);
             try {
-                Thread.sleep(100);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
