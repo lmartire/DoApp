@@ -20,6 +20,7 @@ public class ExceptionReport {
     private Date time;
     private String type;
     private Stack<PointOfFailure> stacktrace;
+    private MalIntent malIntent;
 
     public ExceptionReport(){
         stacktrace = new Stack<PointOfFailure>();
@@ -65,6 +66,15 @@ public class ExceptionReport {
         stacktrace.push(pof);
     }
 
+    public MalIntent getMalIntent() {
+        return malIntent;
+    }
+
+    public void setMalIntent(MalIntent malIntent) {
+        this.malIntent = malIntent;
+    }
+
+
     public String toString(){
         String stack_string="";
         Iterator<PointOfFailure> iterator = stacktrace.iterator();
@@ -72,7 +82,18 @@ public class ExceptionReport {
             PointOfFailure pof = iterator.next();
             stack_string = stack_string+"\t"+pof.getClassName()+":"+pof.getLineNumber()+"\n";
         }
-        return "appName: "+appName+"\n"+"PID: "+PID+"\n"+"ExceptionType: "+type+"\n"
+        return "appName: "+appName+"\n"+"PID: "+PID+"\n"+ "ExceptionType: "+type+"\n"
+                + "Stacktrace: \n"+stack_string;
+    }
+
+    public String toString2(){
+        String stack_string="";
+        Iterator<PointOfFailure> iterator = stacktrace.iterator();
+        while(iterator.hasNext()){
+            PointOfFailure pof = iterator.next();
+            stack_string = stack_string+"\t"+pof.getClassName()+":"+pof.getLineNumber()+"\n";
+        }
+        return "appName: "+appName+"\n"+"PID: "+PID+"\n"+ malIntent.toString() +"\n" + "ExceptionType: "+type+"\n"
                 + "Stacktrace: \n"+stack_string;
     }
 }

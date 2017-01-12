@@ -104,7 +104,7 @@ public class FuzzerService extends IntentService {
 
             //devo attendere perchè Android è lento come la morte
             try {
-                Thread.sleep(500);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -141,6 +141,8 @@ public class FuzzerService extends IntentService {
                 if(ex.getAppName().contains(pkgname) && (ex.getPID() == appPid)){
                     if(lastTime==null || (ex.getTime().after(lastTime))) {
                         Log.i("*DEBUG", "Aggiungo il report n. " + num2);
+
+                        ex.setMalIntent(i);
                         results.add(ex);
 
                         Log.i("*DEBUG", "killo l'app");
@@ -152,7 +154,7 @@ public class FuzzerService extends IntentService {
             }
 
             try {
-                Thread.sleep(500);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -251,7 +253,7 @@ public class FuzzerService extends IntentService {
             PrintStream ps = new PrintStream(fileOutputStream);
             int i=1;
             for(ExceptionReport er : reports){
-                ps.println( (i++) + er.toString());
+                ps.println( (i++) + er.toString2());
             }
             ps.close();
         } catch (FileNotFoundException e) {

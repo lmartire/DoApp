@@ -1,5 +1,7 @@
 package it.unisannio.security.DoApp;
 
+import it.unisannio.security.DoApp.generators.nullgenerator.NullIntentGenerator;
+import it.unisannio.security.DoApp.generators.randomgenerator.RandomStringGenerator;
 import it.unisannio.security.DoApp.model.IntentDataInfo;
 import it.unisannio.security.DoApp.model.MalIntent;
 
@@ -16,19 +18,44 @@ public class MalIntentGenerator {
 
         List<MalIntent> intents = new ArrayList<MalIntent>();
 
-        /*for(IntentDataInfo data : datas) {
-            //null intent
-            MalIntent i = new MalIntent(data.getPackageName(), data.getComponent());
-            intents.add(i);
+        for(IntentDataInfo data : datas) {
+
+            if(data.mimeType!=null){
+
+                switch (data.mimeType) {
+                    case "text/plain":
+
+                        //Null Intent - type unset
+                        MalIntent m = new MalIntent(data.getPackageName(), data.getComponent());
+                        if(!intents.contains(m))
+                            intents.add(m);
+
+                        //Null Intent - type set
+                        m = NullIntentGenerator.getNullMalIntent(data.getPackageName(), data.getComponent(), data.mimeType);
+                        if(!intents.contains(m))
+                            intents.add(m);
+
+                        //Random String
+                        m = RandomStringGenerator.getRandomStringMalIntent(data.getPackageName(), data.getComponent(),data.mimeType);
+                        if(!intents.contains(m))
+                            intents.add(m);
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else if(data.scheme!=null){
+
+                if(data.host!=null){
+
+                }
+                else{
+
+                }
+
+            }
         }
-        */
-
-        MalIntent i1 = new MalIntent(datas.get(0).getPackageName(), datas.get(0).getComponent());
-        intents.add(i1);
-
-        MalIntent i2 = new MalIntent(datas.get(0).getPackageName(), datas.get(0).getComponent());
-        i2.setType("int");
-        intents.add(i2);
 
         return intents;
 

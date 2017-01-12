@@ -22,6 +22,7 @@ import android.widget.Toast;
 import it.unisannio.security.DoApp.adapters.AppInfoAdapter;
 import it.unisannio.security.DoApp.model.AppInfo;
 import it.unisannio.security.DoApp.model.Commons;
+import it.unisannio.security.DoApp.model.IntentDataInfo;
 
 import java.util.List;
 
@@ -87,10 +88,19 @@ public class AppListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO Auto-generated method stub
                 AppInfo appInfo = (AppInfo) appInfoAdapter.getItem(position);
-                Intent i = new Intent(AppListActivity.this, FuzzerService.class);
-                String pkg = appInfo.getPackageName();
-                i.putExtra(Commons.pkgName, pkg);
-                startService(i);
+
+                PackageInfoExtractor extractor = new PackageInfoExtractor(AppListActivity.this);
+                List<IntentDataInfo> datas = extractor.extractIntentFiltersDataType(appInfo.getPackageName());
+
+                if(datas.isEmpty()){
+                    Toast.makeText(AppListActivity.this, "Intent-filter non presenti!", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Intent i = new Intent(AppListActivity.this, FuzzerService.class);
+                    String pkg = appInfo.getPackageName();
+                    i.putExtra(Commons.pkgName, pkg);
+                    startService(i);
+                }
             }
 
         });
