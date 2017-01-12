@@ -108,7 +108,7 @@ public class FuzzerService extends IntentService {
                 e.printStackTrace();
             }
             catch (SecurityException se){
-                Log.e("ERROR", "SecurityException: "+ i.getComponent().getClassName());
+                se.printStackTrace();
             }
 
 

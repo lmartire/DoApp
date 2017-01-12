@@ -2,6 +2,7 @@ package it.unisannio.security.DoApp.model;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.util.Log;
 
 import com.jaredrummler.apkparser.model.AndroidComponent;
 
@@ -17,10 +18,12 @@ public class MalIntent extends Intent{
         super();
         this.targetComponent = targetComponent;
 
+        // se il nome inizia per '.' è necessario creare il nome completo del componente
+        // altrimenti si va in ActivityNotFoundException durante lo startActivity()
         String name = targetComponent.name;
-        if(name.startsWith(".")){
-            name.substring(1);
-        }
+        if(name.startsWith("."))
+            name = packageName+name;
+
         this.setComponent(new ComponentName(packageName, name));
     }
 

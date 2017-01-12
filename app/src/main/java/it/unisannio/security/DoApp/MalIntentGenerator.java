@@ -79,7 +79,7 @@ public class MalIntentGenerator {
                 }
 
             }
-            //il campo data è assent
+            //il campo data è assente
             else{}
         }
 
