@@ -44,7 +44,7 @@ public class MalIntent extends Intent{
 
     }
 
-    public String toString(){
+    /*public String toString(){
         String tipo;
         if(this.getType()==null)
             tipo = "null";
@@ -59,4 +59,5 @@ public class MalIntent extends Intent{
         }
         return "type: "+tipo + " - Extra Text: "+ extra_text;
     }
+    */
 }

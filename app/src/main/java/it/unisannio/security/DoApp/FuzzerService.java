@@ -1,6 +1,7 @@
 package it.unisannio.security.DoApp;
 
 import android.app.IntentService;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.util.Log;
 
@@ -86,21 +87,30 @@ public class FuzzerService extends IntentService {
             //clearLogCat();
 
             //invio l'intent malevolo
-            switch (i.getTargetComponent().type){
-                case AndroidComponent.TYPE_ACTIVITY :
-                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(i);
-                    break;
-                case AndroidComponent.TYPE_BROADCAST_RECEIVER :
-                    sendBroadcast(i);
-                    break;
-                case AndroidComponent.TYPE_SERVICE:
-                    startService(i);
-                    break;
-                case AndroidComponent.TYPE_CONTENT_PROVIDER:
-                    //BAH
-                    break;
+            try{
+                switch (i.getTargetComponent().type) {
+                    case AndroidComponent.TYPE_ACTIVITY:
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(i);
+                        break;
+                    case AndroidComponent.TYPE_BROADCAST_RECEIVER:
+                        sendBroadcast(i);
+                        break;
+                    case AndroidComponent.TYPE_SERVICE:
+                        startService(i);
+                        break;
+                    case AndroidComponent.TYPE_CONTENT_PROVIDER:
+                        //BAH
+                        break;
+                }
             }
+            catch(ActivityNotFoundException e){
+                Log.e("ERROR", "ActivityNotFoundException "+ i.getComponent().getClassName());
+            }
+            catch (SecurityException se){
+                Log.e("ERROR", "SecurityException: "+ i.getComponent().getClassName());
+            }
+
 
             //devo attendere perchè Android è lento come la morte
             try {
@@ -146,12 +156,13 @@ public class FuzzerService extends IntentService {
                         results.add(ex);
 
                         Log.i("*DEBUG", "killo l'app");
-                        killApp(appPid);
                         lastTime = ex.getTime();
                     }
 
                 }
             }
+
+            killApp(appPid);
 
             try {
                 Thread.sleep(1000);

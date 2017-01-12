@@ -2,6 +2,7 @@ package it.unisannio.security.DoApp;
 
 import it.unisannio.security.DoApp.generators.nullgenerator.NullIntentGenerator;
 import it.unisannio.security.DoApp.generators.randomgenerator.RandomStringGenerator;
+import it.unisannio.security.DoApp.generators.randomgenerator.RandomURIGenerator;
 import it.unisannio.security.DoApp.model.IntentDataInfo;
 import it.unisannio.security.DoApp.model.MalIntent;
 
@@ -18,6 +19,8 @@ public class MalIntentGenerator {
 
         List<MalIntent> intents = new ArrayList<MalIntent>();
 
+        MalIntent m;
+
         for(IntentDataInfo data : datas) {
 
             if(data.mimeType!=null){
@@ -26,7 +29,7 @@ public class MalIntentGenerator {
                     case "text/plain":
 
                         //Null Intent - type unset
-                        MalIntent m = new MalIntent(data.getPackageName(), data.getComponent());
+                        m = new MalIntent(data.getPackageName(), data.getComponent());
                         if(!intents.contains(m))
                             intents.add(m);
 
@@ -42,6 +45,27 @@ public class MalIntentGenerator {
 
                         break;
                     default:
+
+                        //Null Intent - type unset
+                        m = new MalIntent(data.getPackageName(), data.getComponent());
+                        if(!intents.contains(m))
+                            intents.add(m);
+
+                        //Null Intent - type set
+                        m = NullIntentGenerator.getNullMalIntent(data.getPackageName(), data.getComponent(), data.mimeType);
+                        if(!intents.contains(m))
+                            intents.add(m);
+
+                        //Random String
+                        m = RandomStringGenerator.getRandomStringMalIntent(data.getPackageName(), data.getComponent(),data.mimeType);
+                        if(!intents.contains(m))
+                            intents.add(m);
+
+                        //Random URI
+                        m = RandomURIGenerator.getRandomURIMalIntent(data.getPackageName(), data.getComponent(),data.mimeType);
+                        if(!intents.contains(m))
+                            intents.add(m);
+
                         break;
                 }
             }
@@ -55,6 +79,8 @@ public class MalIntentGenerator {
                 }
 
             }
+            //il campo data è assent
+            else{}
         }
 
         return intents;
