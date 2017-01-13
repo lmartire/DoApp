@@ -1,5 +1,8 @@
 package it.unisannio.security.DoApp;
 
+import android.content.Intent;
+import android.util.Log;
+
 import it.unisannio.security.DoApp.generators.nullgenerator.NullIntentGenerator;
 import it.unisannio.security.DoApp.generators.randomgenerator.RandomStringGenerator;
 import it.unisannio.security.DoApp.generators.randomgenerator.RandomURIGenerator;
@@ -24,6 +27,7 @@ public class MalIntentGenerator {
         for(IntentDataInfo data : datas) {
 
             if(data.mimeType!=null){
+                Log.i("GENERATOR", "controllo il mimetype "+data.mimeType);
 
                 switch (data.mimeType) {
                     case "text/plain":
@@ -46,23 +50,28 @@ public class MalIntentGenerator {
                         break;
                     default:
 
+                        Log.i("GENERATOR", "caso default");
                         //Null Intent - type unset
                         m = new MalIntent(data.getPackageName(), data.getComponent());
+                       // m.setAction(Intent.ACTION_VIEW);
                         if(!intents.contains(m))
                             intents.add(m);
 
                         //Null Intent - type set
                         m = NullIntentGenerator.getNullMalIntent(data.getPackageName(), data.getComponent(), data.mimeType);
+                        m.setAction(Intent.ACTION_VIEW);
                         if(!intents.contains(m))
                             intents.add(m);
 
                         //Random String
                         m = RandomStringGenerator.getRandomStringMalIntent(data.getPackageName(), data.getComponent(),data.mimeType);
+                        m.setAction(Intent.ACTION_VIEW);
                         if(!intents.contains(m))
                             intents.add(m);
 
                         //Random URI
                         m = RandomURIGenerator.getRandomURIMalIntent(data.getPackageName(), data.getComponent(),data.mimeType);
+                        m.setAction(Intent.ACTION_VIEW);
                         if(!intents.contains(m))
                             intents.add(m);
 
@@ -83,6 +92,7 @@ public class MalIntentGenerator {
             else{}
         }
 
+        Log.i("GENERATOR", "numero intent: "+intents.size());
         return intents;
 
     }

@@ -112,7 +112,7 @@ public class MessagesFilter {
      * @return component name
      */
     public static String extractComponent(String message){
-        if(!message.contains("ComponentInfo")) return "null";
+        if(!message.contains("{")) return "null";
         int start = message.indexOf('/')+1;
         int stop = message.lastIndexOf('}');
         return message.substring(start,stop);

@@ -82,6 +82,7 @@ public class FuzzerService extends IntentService {
 
 
             Log.i("*DEBUG", "Intent n. " + (++num));
+            Log.i("*MALINTENT", i.toString());
 
             //pulisco il logcat .... se solo si pulisse! invece non funziona manco per il cazzo
             //clearLogCat();
@@ -162,6 +163,7 @@ public class FuzzerService extends IntentService {
                 }
             }
 
+            //l'app viene killata in qualsiasi caso per rendere il test stateless
             killApp(appPid);
 
             try {

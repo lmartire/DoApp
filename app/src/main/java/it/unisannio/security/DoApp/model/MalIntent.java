@@ -2,6 +2,7 @@ package it.unisannio.security.DoApp.model;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.jaredrummler.apkparser.model.AndroidComponent;
@@ -35,24 +36,44 @@ public class MalIntent extends Intent{
         this.targetComponent = targetComponent;
     }
 
+
     @Override
     public boolean equals(Object object){
         MalIntent mal1 = (MalIntent) object;
+        // filterEquals fa: Returns true if action, data, type, class, and categories are the same.
+        if(this.filterEquals(mal1)){
+            //dobbiamo fare il confronto per gli extra in qualche modo
+            Bundle b1 = mal1.getExtras();
+            Bundle b = this.getExtras();
+            if (b1 == null && b == null)
+                return true;
+            else if (b1 == null ^ b == null) // xor: ^
+                return false;
+            else {
+                // dynamic binding (speriamo che va)
+                Object o1 = b1.get(Intent.EXTRA_TEXT);
+                Object o = b.get(Intent.EXTRA_TEXT);
+                if(equalsObject(o1, o)){
+                    o1 = b1.get(Intent.EXTRA_STREAM);
+                    o = b.get(Intent.EXTRA_STREAM);
+                    return equalsObject(o1,o);
+                }
+                else return false;
 
-        if(this.getComponent().getClassName().equalsIgnoreCase(mal1.getComponent().getClassName())){
-            if(this.getType()==null && mal1.getType()==null) return true;
-
-            else if(this.getType()==null || mal1.getType()==null) return false;
-
-            else if(this.getType().equalsIgnoreCase(mal1.getType()))
-                    return true;
+            }
         }
-
         return false;
-
     }
 
-    /*public String toString(){
+    private static boolean equalsObject(Object o, Object o1){
+        if ( o == null && o1 == null)
+            return true;
+        else if (o == null ^ o1 == null)
+            return false;
+        else return o.equals(o1);
+    }
+
+    public String toString(){
         String tipo;
         if(this.getType()==null)
             tipo = "null";
@@ -67,5 +88,5 @@ public class MalIntent extends Intent{
         }
         return "type: "+tipo + " - Extra Text: "+ extra_text;
     }
-    */
+
 }
