@@ -1,14 +1,13 @@
-package it.unisannio.security.DoApp;
+package it.unisannio.security.DoApp.activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import it.unisannio.security.DoApp.R;
 import it.unisannio.security.DoApp.model.Commons;
 
 public class EndActivity extends AppCompatActivity {
@@ -29,7 +28,7 @@ public class EndActivity extends AppCompatActivity {
         Intent i = getIntent();
         pathFile = i.getStringExtra(Commons.pathFile);
         if(pathFile == null){
-            textView.setText("Non è stato esegguito alcun report\nNon si sono verificati crash!");
+            textView.setText("Non è stato generato alcun report\nNon si sono verificati crash!");
             button.setVisibility(View.INVISIBLE);
             button.setClickable(false);
         }

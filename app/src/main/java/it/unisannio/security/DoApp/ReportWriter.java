@@ -40,6 +40,8 @@ public class ReportWriter {
             Date d = new Date();
             ps.println(d.toString());
             ps.println("Tested App: "+pkgname);
+            ps.println();
+            ps.println();
 
             //numero reports
             int i=1;

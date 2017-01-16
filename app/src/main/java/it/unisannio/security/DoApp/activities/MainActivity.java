@@ -1,6 +1,5 @@
-package it.unisannio.security.DoApp;
+package it.unisannio.security.DoApp.activities;
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +7,8 @@ import android.view.View;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import it.unisannio.security.DoApp.FuzzerService;
+import it.unisannio.security.DoApp.R;
 import it.unisannio.security.DoApp.model.Commons;
 
 public class MainActivity extends AppCompatActivity {

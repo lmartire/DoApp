@@ -1,4 +1,4 @@
-package it.unisannio.security.DoApp;
+package it.unisannio.security.DoApp.activities;
 
 /**
  * Created by security on 06/01/17.
@@ -13,12 +13,15 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import it.unisannio.security.DoApp.FuzzerService;
+import it.unisannio.security.DoApp.PackageInfoExtractor;
+import it.unisannio.security.DoApp.R;
 import it.unisannio.security.DoApp.adapters.AppInfoAdapter;
 import it.unisannio.security.DoApp.model.AppInfo;
 import it.unisannio.security.DoApp.model.Commons;

@@ -1,15 +1,19 @@
-package it.unisannio.security.DoApp;
+package it.unisannio.security.DoApp.activities;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import it.unisannio.security.DoApp.R;
 import it.unisannio.security.DoApp.model.Commons;
 
 public class ViewReportActivity extends AppCompatActivity {
@@ -20,6 +24,11 @@ public class ViewReportActivity extends AppCompatActivity {
         setContentView(R.layout.edit_activity);
 
         String pathFile = getIntent().getStringExtra(Commons.pathFile);
+
+        TextView tv = (TextView) findViewById(R.id.notetitle);
+        tv.setTextColor(Color.WHITE);
+        tv.setText(""+pathFile);
+
         //Get the text file
         File file = new File(pathFile);
 

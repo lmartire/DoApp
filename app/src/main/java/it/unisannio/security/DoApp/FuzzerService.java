@@ -4,8 +4,8 @@ import android.app.IntentService;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
+import it.unisannio.security.DoApp.activities.EndActivity;
 import it.unisannio.security.DoApp.model.Commons;
 import it.unisannio.security.DoApp.model.ExceptionReport;
 import it.unisannio.security.DoApp.model.LogCatMessage;
@@ -17,11 +17,8 @@ import com.jaredrummler.apkparser.model.AndroidComponent;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

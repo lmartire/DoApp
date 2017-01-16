@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,9 +25,9 @@
             android:name=".FuzzerService"
             android:exported="false" />
 
-        <activity android:name=".AppListActivity" />
-        <activity android:name=".EndActivity" />
-        <activity android:name=".ViewReportActivity"></activity>
+        <activity android:name=".activities.AppListActivity" />
+        <activity android:name=".activities.EndActivity" />
+        <activity android:name=".activities.ViewReportActivity"></activity>
     </application>
 
 </manifest>
