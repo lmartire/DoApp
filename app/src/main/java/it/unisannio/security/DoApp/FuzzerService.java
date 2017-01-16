@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import it.unisannio.security.DoApp.model.Commons;
 import it.unisannio.security.DoApp.model.ExceptionReport;
@@ -27,6 +28,7 @@ import java.util.List;
 
 public class FuzzerService extends IntentService {
 
+    private String pathFile;
     public FuzzerService() {
         super("FuzzerService");
     }
@@ -47,9 +49,13 @@ public class FuzzerService extends IntentService {
                 }
 
                 //avvio l'activity finale
+
                 Intent end = new Intent(this, EndActivity.class);
                 end.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                end.putExtra(Commons.pathFile, pathFile);
+
                 startActivity(end);
+
             }
         }
     }
@@ -175,8 +181,10 @@ public class FuzzerService extends IntentService {
 
         //TODO: effettuare il triage sulla lista di ExceptionReport
 
-        //temporaneo
-        scriviSuFile(results, "/storage/sdcard0/result.txt");
+        if(results.size()>0)
+            pathFile = ReportWriter.scriviSuFile(results, pkgname);
+
+
         Log.i("*DEBUG", "FINITO");
     }
 
@@ -260,7 +268,7 @@ public class FuzzerService extends IntentService {
             return -1;
     }
 
-    private void scriviSuFile(List<ExceptionReport> reports, String nomeFile){
+  /*  private void scriviSuFile(List<ExceptionReport> reports, String nomeFile){
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(nomeFile);
             PrintStream ps = new PrintStream(fileOutputStream);
@@ -272,5 +280,5 @@ public class FuzzerService extends IntentService {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

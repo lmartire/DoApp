@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <TextView
+        android:id="@+id/notetitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#111111"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:fillViewport="true">
+        <EditText xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/note"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@android:color/white"
+            android:padding="15dip"
+            android:fadingEdge="none"
+            android:scrollbars="vertical|horizontal"
+            android:gravity="top"
+            android:inputType="none"
+            android:fontFamily="sans-serif"
+            android:textSize="12sp" />
+    </ScrollView>
+</LinearLayout>

@@ -26,7 +26,8 @@
             android:exported="false" />
 
         <activity android:name=".AppListActivity" />
-        <activity android:name=".EndActivity"></activity>
+        <activity android:name=".EndActivity" />
+        <activity android:name=".ViewReportActivity"></activity>
     </application>
 
 </manifest>

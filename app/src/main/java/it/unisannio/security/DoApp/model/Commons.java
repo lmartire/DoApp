@@ -20,4 +20,8 @@ public class Commons {
     public static final String PKGINFO_KEY = "pkginfo";
     public static final String APPTYPE_KEY = "apptype";
     public static final String pkgName = "pkgname";
+
+    public static final String path="/storage/sdcard0/DoAppReports/";
+    public static final String pathFile = "pathFile";
+
 }
