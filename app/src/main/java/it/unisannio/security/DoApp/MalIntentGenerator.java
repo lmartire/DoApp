@@ -22,78 +22,129 @@ public class MalIntentGenerator {
 
         List<MalIntent> intents = new ArrayList<MalIntent>();
 
-        MalIntent m;
-
+        //per ogni campo data dichiarato nel manifest
         for(IntentDataInfo data : datas) {
 
-            if(data.mimeType!=null){
-                Log.i("GENERATOR", "controllo il mimetype "+data.mimeType);
+            List<MalIntent> intents_for_single = generateForSingleData(data);
+            addIfNotContains(intents, intents_for_single);
 
-                switch (data.mimeType) {
-                    case "text/plain":
+            //devo generare i malIntent per ogni ACTION dichiarata
+            if(!data.getFilter().actions.isEmpty()){
 
-                        //Null Intent - type unset
-                        m = new MalIntent(data);
-                        if(!intents.contains(m))
-                            intents.add(m);
+                //per ogni azione relativa al campo data
+                for(String action : data.getFilter().actions) {
 
-                        //Null Intent - type set
-                        m = NullIntentGenerator.getNullMalIntent(data);
-                        if(!intents.contains(m))
-                            intents.add(m);
+                    List<MalIntent> intents_with_action = cloneList(intents_for_single);
+                    setActionForAll(action, intents_with_action);
 
-                        //Random String
-                        m = RandomStringGenerator.getRandomStringMalIntent(data);
-                        if(!intents.contains(m))
-                            intents.add(m);
-
-                        break;
-                    default:
-
-                        Log.i("GENERATOR", "caso default");
-                        //Null Intent - type unset
-                        m = new MalIntent(data);
-                       // m.setAction(Intent.ACTION_VIEW);
-                        if(!intents.contains(m))
-                            intents.add(m);
-
-                        //Null Intent - type set
-                        m = NullIntentGenerator.getNullMalIntent(data);
-                        m.setAction(Intent.ACTION_VIEW);
-                        if(!intents.contains(m))
-                            intents.add(m);
-
-                        //Random String
-                        m = RandomStringGenerator.getRandomStringMalIntent(data);
-                        m.setAction(Intent.ACTION_VIEW);
-                        if(!intents.contains(m))
-                            intents.add(m);
-
-                        //Random URI
-                        m = RandomURIGenerator.getRandomURIMalIntent(data);
-                        m.setAction(Intent.ACTION_VIEW);
-                        if(!intents.contains(m))
-                            intents.add(m);
-
-                        break;
+                    addIfNotContains(intents, intents_with_action);
                 }
             }
-            else if(data.scheme!=null){
 
-                if(data.host!=null){
-
-                }
-                else{
-
-                }
-
-            }
-            //il campo data è assente
-            else{}
         }
 
+
         Log.i("GENERATOR", "numero intent: "+intents.size());
+        //STAMPA
+        Log.i("*MALINTENT", "ACTION");
+        for(MalIntent m : intents){
+            Log.i("*MALINTENT", m.toString());
+        }
+
         return intents;
 
+    }
+
+
+    /**
+     * Generate a list of MalIntent by IntentDataInfo analysis
+     * The method doesn't set the ACTION field
+     * @param data
+     * @return
+     */
+    private static List<MalIntent> generateForSingleData(IntentDataInfo data){
+
+        List<MalIntent> intents = new ArrayList<MalIntent>();
+        MalIntent m;
+        if (data.mimeType != null) {
+            Log.i("GENERATOR", "controllo il mimetype " + data.mimeType);
+
+            switch (data.mimeType) {
+                case "text/plain":
+
+                    //Null Intent - type unset
+                    m = new MalIntent(data);
+                    if (!intents.contains(m))
+                        intents.add(m);
+
+                    //Null Intent - type set
+                    m = NullIntentGenerator.getNullMalIntent(data);
+                    if (!intents.contains(m))
+                        intents.add(m);
+
+                    //Random String
+                    m = RandomStringGenerator.getRandomStringMalIntent(data);
+                    if (!intents.contains(m))
+                        intents.add(m);
+
+                    break;
+                default:
+
+                    Log.i("GENERATOR", "caso default");
+                    //Null Intent - type unset
+                    m = new MalIntent(data);
+                    // m.setAction(Intent.ACTION_VIEW);
+                    if (!intents.contains(m))
+                        intents.add(m);
+
+                    //Null Intent - type set
+                    m = NullIntentGenerator.getNullMalIntent(data);
+                    if (!intents.contains(m))
+                        intents.add(m);
+
+                    //Random String
+                    m = RandomStringGenerator.getRandomStringMalIntent(data);
+                    if (!intents.contains(m))
+                        intents.add(m);
+
+                    //Random URI
+                    m = RandomURIGenerator.getRandomURIMalIntent(data);
+                    if (!intents.contains(m))
+                        intents.add(m);
+
+                    break;
+            }
+        } else if (data.scheme != null) {
+
+            if (data.host != null) {
+
+            } else {
+
+            }
+
+        }
+
+        return intents;
+    }
+
+    private static void setActionForAll(String action, List<MalIntent> malIntents){
+        for(MalIntent m : malIntents){
+            m.setAction(action);
+        }
+    }
+
+    private static void addIfNotContains(List<MalIntent> totalIntents, List<MalIntent> intents){
+        for(MalIntent m : intents){
+            if(!totalIntents.contains(m))
+                totalIntents.add(m);
+        }
+    }
+
+    private static List<MalIntent> cloneList(List<MalIntent> intents){
+        List<MalIntent> cloned = new ArrayList<MalIntent>();
+        for(MalIntent m : intents){
+            cloned.add(m.clone());
+        }
+        return cloned;
     }
 }

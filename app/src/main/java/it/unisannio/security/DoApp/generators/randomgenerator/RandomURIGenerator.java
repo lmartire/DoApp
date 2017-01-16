@@ -1,6 +1,7 @@
 package it.unisannio.security.DoApp.generators.randomgenerator;
 
 import android.content.Intent;
+import android.net.Uri;
 
 import com.jaredrummler.apkparser.model.AndroidComponent;
 
@@ -19,7 +20,7 @@ public class RandomURIGenerator {
         mal.setType(datafield.mimeType);
 
         //dovrebbe essere random
-        mal.putExtra(Intent.EXTRA_STREAM, "ciao");
+        mal.putExtra(Intent.EXTRA_STREAM, Uri.parse("ciao"));
 
         return mal;
     }

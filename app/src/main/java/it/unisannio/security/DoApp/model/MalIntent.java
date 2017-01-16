@@ -29,6 +29,9 @@ public class MalIntent extends Intent{
         this.setComponent(new ComponentName(packageName, name));
     }
 
+    //empty constructor
+    private MalIntent(){}
+
     public AndroidComponent getTargetComponent() {
         return targetComponent;
     }
@@ -37,6 +40,16 @@ public class MalIntent extends Intent{
         this.targetComponent = targetComponent;
     }
 
+    public MalIntent clone(){
+        MalIntent cloned = new MalIntent();
+        cloned.setType(this.getType());
+        cloned.setComponent(this.getComponent());
+        if(this.getExtras()!=null)
+            cloned.putExtras(this.getExtras());
+        cloned.setTargetComponent(this.targetComponent);
+
+        return cloned;
+    }
 
     @Override
     public boolean equals(Object object){
@@ -68,19 +81,13 @@ public class MalIntent extends Intent{
     }
 
     public String toString(){
-        String tipo;
-        if(this.getType()==null)
-            tipo = "null";
-        else tipo = this.getType();
+        return "type: "+((getType()==null)? "null" : getType()) +
+                " - Action:" + ((getAction() == null) ? "null" : getAction())+
+                " - Extra Text: "+((getExtras()==null) || ((getExtras().get(Intent.EXTRA_TEXT) == null))? "null" : getExtras().get(Intent.EXTRA_TEXT)) +
+                " - Extra Stream: "+((getExtras()==null) || ((getExtras().get(Intent.EXTRA_STREAM) == null))? "null" : getExtras().get(Intent.EXTRA_STREAM));
 
-        String extra_text;
-        if( (this.getExtras()==null) || (this.getExtras().get(Intent.EXTRA_TEXT) == null) ){
-            extra_text = "null";
-        }
-        else{
-            extra_text = this.getExtras().get(Intent.EXTRA_TEXT).toString();
-        }
-        return "type: "+tipo + " - Extra Text: "+ extra_text;
     }
+
+
 
 }
