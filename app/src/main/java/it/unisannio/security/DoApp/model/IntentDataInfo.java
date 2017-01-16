@@ -11,11 +11,13 @@ public class IntentDataInfo extends IntentFilter.IntentData{
 
     private AndroidComponent component;
     private String packageName;
+    private IntentFilter filter; //intent-filter in which is declared the <data> field
 
-    public IntentDataInfo(IntentFilter.IntentData data, AndroidComponent component, String packageName) {
+    public IntentDataInfo(IntentFilter.IntentData data, AndroidComponent component, String packageName, IntentFilter filter) {
         super(data.scheme, data.host, data.port, data.path, data.pathPattern, data.pathPrefix, data.mimeType, data.type);
         this.component = component;
         this.packageName = packageName;
+        this.filter = filter;
     }
 
     public AndroidComponent getComponent(){
@@ -32,5 +34,13 @@ public class IntentDataInfo extends IntentFilter.IntentData{
 
     public void setPackageName(String packageName) {
         this.packageName = packageName;
+    }
+
+    public IntentFilter getFilter() {
+        return filter;
+    }
+
+    public void setFilter(IntentFilter filter) {
+        this.filter = filter;
     }
 }

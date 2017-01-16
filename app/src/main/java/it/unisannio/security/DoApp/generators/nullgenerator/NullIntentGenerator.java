@@ -2,6 +2,7 @@ package it.unisannio.security.DoApp.generators.nullgenerator;
 
 import com.jaredrummler.apkparser.model.AndroidComponent;
 
+import it.unisannio.security.DoApp.model.IntentDataInfo;
 import it.unisannio.security.DoApp.model.MalIntent;
 
 /**
@@ -10,9 +11,9 @@ import it.unisannio.security.DoApp.model.MalIntent;
 
 public class NullIntentGenerator {
 
-    public static MalIntent getNullMalIntent(String pkgname, AndroidComponent component, String mimetype){
-        MalIntent mal = new MalIntent(pkgname,component);
-        mal.setType(mimetype);
+    public static MalIntent getNullMalIntent(IntentDataInfo datafield){
+        MalIntent mal = new MalIntent(datafield);
+        mal.setType(datafield.mimeType);
         return mal;
     }
 }

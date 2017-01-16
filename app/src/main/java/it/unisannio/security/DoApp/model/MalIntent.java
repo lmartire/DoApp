@@ -15,9 +15,10 @@ public class MalIntent extends Intent{
 
     private AndroidComponent targetComponent;
 
-    public MalIntent(String packageName, AndroidComponent targetComponent){
+    public MalIntent(IntentDataInfo datafield){
         super();
-        this.targetComponent = targetComponent;
+        this.targetComponent = datafield.getComponent();
+        String packageName = datafield.getPackageName();
 
         // se il nome inizia per '.' è necessario creare il nome completo del componente
         // altrimenti si va in ActivityNotFoundException durante lo startActivity()
@@ -51,15 +52,8 @@ public class MalIntent extends Intent{
                 return false;
             else {
                 // dynamic binding (speriamo che va)
-                Object o1 = b1.get(Intent.EXTRA_TEXT);
-                Object o = b.get(Intent.EXTRA_TEXT);
-                if(equalsObject(o1, o)){
-                    o1 = b1.get(Intent.EXTRA_STREAM);
-                    o = b.get(Intent.EXTRA_STREAM);
-                    return equalsObject(o1,o);
-                }
-                else return false;
-
+                return equalsObject(b.get(Intent.EXTRA_TEXT), b1.get(Intent.EXTRA_TEXT)) &&
+                        equalsObject(b.get(Intent.EXTRA_STREAM), b1.get(EXTRA_STREAM));
             }
         }
         return false;

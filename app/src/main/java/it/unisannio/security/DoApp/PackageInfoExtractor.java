@@ -61,7 +61,7 @@ public class PackageInfoExtractor {
                     //recupero la lista dei datatype per ogni intent-filter
                     List<IntentFilter.IntentData> datas = filter.dataList;
                     for (IntentFilter.IntentData data : datas) {
-                        IntentDataInfo dataInfo = new IntentDataInfo(data, component, pkgname);
+                        IntentDataInfo dataInfo = new IntentDataInfo(data, component, pkgname, filter);
                         dataInfoList.add(dataInfo);
                     }
                 }

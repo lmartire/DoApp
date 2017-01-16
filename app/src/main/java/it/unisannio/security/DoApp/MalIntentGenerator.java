@@ -33,17 +33,17 @@ public class MalIntentGenerator {
                     case "text/plain":
 
                         //Null Intent - type unset
-                        m = new MalIntent(data.getPackageName(), data.getComponent());
+                        m = new MalIntent(data);
                         if(!intents.contains(m))
                             intents.add(m);
 
                         //Null Intent - type set
-                        m = NullIntentGenerator.getNullMalIntent(data.getPackageName(), data.getComponent(), data.mimeType);
+                        m = NullIntentGenerator.getNullMalIntent(data);
                         if(!intents.contains(m))
                             intents.add(m);
 
                         //Random String
-                        m = RandomStringGenerator.getRandomStringMalIntent(data.getPackageName(), data.getComponent(),data.mimeType);
+                        m = RandomStringGenerator.getRandomStringMalIntent(data);
                         if(!intents.contains(m))
                             intents.add(m);
 
@@ -52,25 +52,25 @@ public class MalIntentGenerator {
 
                         Log.i("GENERATOR", "caso default");
                         //Null Intent - type unset
-                        m = new MalIntent(data.getPackageName(), data.getComponent());
+                        m = new MalIntent(data);
                        // m.setAction(Intent.ACTION_VIEW);
                         if(!intents.contains(m))
                             intents.add(m);
 
                         //Null Intent - type set
-                        m = NullIntentGenerator.getNullMalIntent(data.getPackageName(), data.getComponent(), data.mimeType);
+                        m = NullIntentGenerator.getNullMalIntent(data);
                         m.setAction(Intent.ACTION_VIEW);
                         if(!intents.contains(m))
                             intents.add(m);
 
                         //Random String
-                        m = RandomStringGenerator.getRandomStringMalIntent(data.getPackageName(), data.getComponent(),data.mimeType);
+                        m = RandomStringGenerator.getRandomStringMalIntent(data);
                         m.setAction(Intent.ACTION_VIEW);
                         if(!intents.contains(m))
                             intents.add(m);
 
                         //Random URI
-                        m = RandomURIGenerator.getRandomURIMalIntent(data.getPackageName(), data.getComponent(),data.mimeType);
+                        m = RandomURIGenerator.getRandomURIMalIntent(data);
                         m.setAction(Intent.ACTION_VIEW);
                         if(!intents.contains(m))
                             intents.add(m);
