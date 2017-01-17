@@ -38,17 +38,15 @@ public class FuzzerService extends IntentService {
             if(pkgname!=null && !pkgname.isEmpty()) {
 
                 //pulisco il logcat .... funziona abbastanza spesso da rendere la cosa decente
-                int pidLogcat = getAppPID("logcat");
-                if(pidLogcat!= -1) {
-                    killApp(pidLogcat);
-                    clearLogCat();
-                }
+                killLogCatProcess();
+                clearLogCat();
+
 
                 fuzz(pkgname);
 
 
                 try {
-                    Thread.sleep(300);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -123,7 +121,7 @@ public class FuzzerService extends IntentService {
 
             //devo attendere perchè Android è lento come la morte
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -175,7 +173,7 @@ public class FuzzerService extends IntentService {
             killApp(appPid);
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -270,17 +268,13 @@ public class FuzzerService extends IntentService {
             return -1;
     }
 
-  /*  private void scriviSuFile(List<ExceptionReport> reports, String nomeFile){
+    private void killLogCatProcess(){
+        java.lang.Process suProcess = null;
+        String[] commands = {"su", "-c","killall -9 logcat"};
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(nomeFile);
-            PrintStream ps = new PrintStream(fileOutputStream);
-            int i=1;
-            for(ExceptionReport er : reports){
-                ps.println( (i++) + er.toString2());
-            }
-            ps.close();
-        } catch (FileNotFoundException e) {
+            suProcess = Runtime.getRuntime().exec(commands);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 }
