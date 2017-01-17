@@ -48,13 +48,16 @@ public class MessagesFilter {
 
             //encountered FATAL EXCEPTION message
             if(m.getMessage().contains("FATAL EXCEPTION")){
+
+                String currTime = m.getTime();
                 exceptionReport = new ExceptionReport();
 
+                Log.e("APPNAME", m.getAppName());
 
                 SimpleDateFormat formatter = new SimpleDateFormat("MM-dd HH:mm:ss.SSS");
                 Date messageTime = null;
                 try {
-                    messageTime = formatter.parse(m.getTime());
+                    messageTime = formatter.parse(currTime);
                     exceptionReport.setTime(messageTime);
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -71,8 +74,11 @@ public class MessagesFilter {
 
                 exceptionReport.setPID(pid);
 
-                if(messageIterator.hasNext())
+                if(messageIterator.hasNext()) {
                     m = messageIterator.next(); //process
+                    exceptionReport.setProcessName(MessagesFilter.extractProcessName(m.getMessage()));
+                }
+
 
                 //extract componentInfo
                 if(messageIterator.hasNext()) {
@@ -81,19 +87,26 @@ public class MessagesFilter {
                 }
 
                 //extract exception type
-                while(messageIterator.hasNext() && !(m = messageIterator.next()).getMessage().contains("Caused by"));
+                if(messageIterator.hasNext()){
+                    m = messageIterator.next();
+                    while(messageIterator.hasNext() && m.getTime().equals(currTime) && !m.getMessage().contains("Caused by")){
+                        m = messageIterator.next();
+                    }
 
-                if(m.getMessage().contains("Caused by"))
-                    exceptionReport.setType(MessagesFilter.extractExceptionType(m.getMessage()));
-                else
-                    exceptionReport.setType("Type not found");
+                    if(m.getMessage().contains("Caused by")) {
+                        exceptionReport.setType(MessagesFilter.extractExceptionType(m.getMessage()));
 
-                //extract stacktrace
-                while(messageIterator.hasNext() && (m = messageIterator.next()).getMessage().contains("at")){
-                    PointOfFailure pof = new PointOfFailure();
-                    pof.setClassName(MessagesFilter.extractClass(m.getMessage()));
-                    pof.setLineNumber(MessagesFilter.extractLineNumber(m.getMessage()));
-                    exceptionReport.addPointOfFailure(pof);
+                        //extract stacktrace
+                        while(messageIterator.hasNext() && (m = messageIterator.next()).getMessage().contains("at")){
+                            PointOfFailure pof = new PointOfFailure();
+                            pof.setClassName(MessagesFilter.extractClass(m.getMessage()));
+                            pof.setLineNumber(MessagesFilter.extractLineNumber(m.getMessage()));
+                            exceptionReport.addPointOfFailure(pof);
+                        }
+                    }
+                    else
+                        exceptionReport.setType("Type not found");
+
                 }
 
                 reports.add(exceptionReport);
@@ -104,6 +117,12 @@ public class MessagesFilter {
 
 
 
+    public static String extractProcessName(String message){
+        if(!message.contains("Process:")) return "null";
+        int start = message.indexOf(':')+2;
+        int stop = message.indexOf(',');
+        return message.substring(start,stop);
+    }
 
     /**
      * extract component name from this LogCatMessage:

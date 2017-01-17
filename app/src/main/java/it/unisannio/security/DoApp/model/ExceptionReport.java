@@ -15,7 +15,8 @@ import java.util.Stack;
 
 public class ExceptionReport {
 
-    private String appName;
+    private String appName; //component name
+    private String processName; //package name
     private int PID;
     private Date time;
     private String type;
@@ -32,6 +33,14 @@ public class ExceptionReport {
 
     public void setAppName(String appName) {
         this.appName = appName;
+    }
+
+    public String getProcessName() {
+        return processName;
+    }
+
+    public void setProcessName(String processName) {
+        this.processName = processName;
     }
 
     public int getPID() {
@@ -82,7 +91,7 @@ public class ExceptionReport {
             PointOfFailure pof = iterator.next();
             stack_string = stack_string+"\t"+pof.getClassName()+":"+pof.getLineNumber()+"\n";
         }
-        return "appName: "+appName+"\n"+"PID: "+PID+"\n"+
+        return "pkgnName: "+processName+"\n"+"appName: "+appName+"\n"+"PID: "+PID+"\n"+
                 ((malIntent==null)?"Impossibile recuperare MalIntent" : malIntent.toString()) +
                 "\n" + "ExceptionType: "+type+"\n"
                 + "Stacktrace: \n"+stack_string;

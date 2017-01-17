@@ -147,7 +147,7 @@ public class FuzzerService extends IntentService {
                 Log.i("*DEBUG", "Report: "+(++num2));
                 Log.i("*DEBUG", ex.toString());
 
-                if(ex.getAppName().contains(pkgname) && (ex.getPID() == appPid)){
+                if((ex.getAppName().contains(pkgname) || ex.getProcessName().equalsIgnoreCase(pkgname)) && (ex.getPID() == appPid)){
                     if(lastTime==null || (ex.getTime().after(lastTime))) {
                         Log.i("*DEBUG", "Aggiungo il report n. " + num2);
 
