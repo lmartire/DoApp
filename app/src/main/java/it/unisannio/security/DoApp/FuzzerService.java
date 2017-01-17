@@ -3,6 +3,7 @@ package it.unisannio.security.DoApp;
 import android.app.IntentService;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.os.SystemClock;
 import android.util.Log;
 
 import it.unisannio.security.DoApp.activities.EndActivity;
@@ -45,11 +46,7 @@ public class FuzzerService extends IntentService {
                 fuzz(pkgname);
 
 
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                SystemClock.sleep(100);
 
                 //avvio l'activity finale
 
@@ -120,11 +117,8 @@ public class FuzzerService extends IntentService {
 
 
             //devo attendere perchè Android è lento come la morte
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
+            SystemClock.sleep(1000);
 
             //analizzo il logcat alla ricerca di un crash
             List<String> lines = readLogCat();
@@ -139,11 +133,9 @@ public class FuzzerService extends IntentService {
 
             //analizzo i messaggi alla ricerca di FATAL EXCEPTION
             List<ExceptionReport> reports = MessagesFilter.filterByFatalException(messages);
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
+            SystemClock.sleep(1000);
+
             Log.i("*DEBUG", "recupero PID app");
             int appPid = getAppPID(pkgname);
             Log.i("*DEBUG", "PID: "+String.valueOf(appPid));
@@ -172,11 +164,7 @@ public class FuzzerService extends IntentService {
             //l'app viene killata in qualsiasi caso per rendere il test stateless
             killApp(appPid);
 
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            SystemClock.sleep(1000);
         }
 
         //TODO: effettuare il triage sulla lista di ExceptionReport
