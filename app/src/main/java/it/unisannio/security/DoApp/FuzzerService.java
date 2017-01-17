@@ -39,7 +39,7 @@ public class FuzzerService extends IntentService {
             if(pkgname!=null && !pkgname.isEmpty()) {
 
                 //pulisco il logcat .... funziona abbastanza spesso da rendere la cosa decente
-                killLogCatProcess();
+                killAll("logcat");
                 clearLogCat();
 
 
@@ -162,7 +162,8 @@ public class FuzzerService extends IntentService {
             }
 
             //l'app viene killata in qualsiasi caso per rendere il test stateless
-            killApp(appPid);
+            //killApp(appPid);
+            killAll(pkgname);
 
             SystemClock.sleep(1000);
         }
@@ -256,9 +257,9 @@ public class FuzzerService extends IntentService {
             return -1;
     }
 
-    private void killLogCatProcess(){
+    private void killAll(String processName){
         java.lang.Process suProcess = null;
-        String[] commands = {"su", "-c","killall -9 logcat"};
+        String[] commands = {"su", "-c","killall -9 " + processName};
         try {
             suProcess = Runtime.getRuntime().exec(commands);
         } catch (IOException e) {
