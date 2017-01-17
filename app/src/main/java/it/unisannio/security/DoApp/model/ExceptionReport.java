@@ -82,18 +82,9 @@ public class ExceptionReport {
             PointOfFailure pof = iterator.next();
             stack_string = stack_string+"\t"+pof.getClassName()+":"+pof.getLineNumber()+"\n";
         }
-        return "appName: "+appName+"\n"+"PID: "+PID+"\n"+ "ExceptionType: "+type+"\n"
-                + "Stacktrace: \n"+stack_string;
-    }
-
-    public String toString2(){
-        String stack_string="";
-        Iterator<PointOfFailure> iterator = stacktrace.iterator();
-        while(iterator.hasNext()){
-            PointOfFailure pof = iterator.next();
-            stack_string = stack_string+"\t"+pof.getClassName()+":"+pof.getLineNumber()+"\n";
-        }
-        return "appName: "+appName+"\n"+"PID: "+PID+"\n"+ malIntent.toString() +"\n" + "ExceptionType: "+type+"\n"
+        return "appName: "+appName+"\n"+"PID: "+PID+"\n"+
+                ((malIntent==null)?"Impossibile recuperare MalIntent" : malIntent.toString()) +
+                "\n" + "ExceptionType: "+type+"\n"
                 + "Stacktrace: \n"+stack_string;
     }
 }

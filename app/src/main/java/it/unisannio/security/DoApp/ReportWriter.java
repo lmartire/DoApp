@@ -46,7 +46,7 @@ public class ReportWriter {
             //numero reports
             int i=1;
             for(ExceptionReport er : reports){
-                ps.println( (i++) + er.toString2());
+                ps.println( (i++) +" *****************************\n" +er.toString());
             }
             ps.close();
             return pathCompleta;

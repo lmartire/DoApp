@@ -36,6 +36,14 @@ public class FuzzerService extends IntentService {
             //estraggo il nome dell'app su cui fare fuzzing
             String pkgname = intent.getStringExtra(Commons.pkgName);
             if(pkgname!=null && !pkgname.isEmpty()) {
+
+                //pulisco il logcat .... funziona abbastanza spesso da rendere la cosa decente
+                int pidLogcat = getAppPID("logcat");
+                if(pidLogcat!= -1) {
+                    killApp(pidLogcat);
+                    clearLogCat();
+                }
+
                 fuzz(pkgname);
 
 
@@ -86,9 +94,6 @@ public class FuzzerService extends IntentService {
 
             Log.i("*DEBUG", "Intent n. " + (++num));
             Log.i("*MALINTENT", i.toString());
-
-            //pulisco il logcat .... se solo si pulisse! invece non funziona manco per il cazzo
-            //clearLogCat();
 
             //invio l'intent malevolo
             try{
