@@ -9,15 +9,14 @@ import it.unisannio.security.DoApp.model.IntentDataInfo;
 import it.unisannio.security.DoApp.model.MalIntent;
 
 public class GenericPathPortURIGenerator {
-
-    public static MalIntent getSemivalidSchemeHostPortURIMalIntent(IntentDataInfo datafield){
+    public static MalIntent getSemivalidSchemeHostPortPathURIMalIntent(IntentDataInfo datafield){
 
         MalIntent mal = new MalIntent(datafield);
         String scheme = datafield.scheme;
         String host = datafield.host;
         String port = datafield.port;
-        String path = RandomStringUtils.random(10);
-        mal.setData(Uri.parse(scheme+ "://" + host + ":" + port+ "/" +path));
+        String semiValidPath = datafield.path +"/" +RandomStringUtils.random(10);
+        mal.setData(Uri.parse(scheme+ "://" + host + ":" + port+ "/" +semiValidPath));
         return mal;
     }
 }

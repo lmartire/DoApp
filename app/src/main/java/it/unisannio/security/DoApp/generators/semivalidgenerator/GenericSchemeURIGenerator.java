@@ -8,15 +8,13 @@ import org.apache.commons.lang3.RandomStringUtils;
 import it.unisannio.security.DoApp.model.IntentDataInfo;
 import it.unisannio.security.DoApp.model.MalIntent;
 
-public class GenericPortPathPrefixURIGenerator {
-    public static MalIntent getSemivalidSchemeHostPortURIMalIntent(IntentDataInfo datafield){
+public class GenericSchemeURIGenerator {
+    public static MalIntent getSemivalidSchemeURIMalIntent(IntentDataInfo datafield){
 
         MalIntent mal = new MalIntent(datafield);
         String scheme = datafield.scheme;
-        String host = datafield.host;
-        String port = datafield.port;
-        String pathPrefix = RandomStringUtils.random(10);
-        mal.setData(Uri.parse(scheme+ "://" + host + ":" + port+ "/" +pathPrefix+ "/"));
+        String host = RandomStringUtils.random(10);
+        mal.setData(Uri.parse(scheme+ "://" + host));
         return mal;
     }
 }

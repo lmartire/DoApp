@@ -3,13 +3,11 @@ package it.unisannio.security.DoApp.generators.semivalidgenerator;
 import android.content.Intent;
 import android.net.Uri;
 
-import it.unisannio.security.DoApp.model.IntentDataInfo;
-import it.unisannio.security.DoApp.model.MalIntent;
 import org.apache.commons.lang3.RandomStringUtils;
 
-/**
- * Created by antonio on 18/01/17.
- */
+import it.unisannio.security.DoApp.model.IntentDataInfo;
+import it.unisannio.security.DoApp.model.MalIntent;
+
 
 public class GenericFileURIGenerator {
 
