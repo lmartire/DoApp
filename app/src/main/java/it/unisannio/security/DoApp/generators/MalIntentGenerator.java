@@ -1,4 +1,4 @@
-package it.unisannio.security.DoApp;
+package it.unisannio.security.DoApp.generators;
 
 import android.content.Intent;
 import android.util.Log;

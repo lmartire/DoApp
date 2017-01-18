@@ -5,6 +5,8 @@ import android.net.Uri;
 
 import com.jaredrummler.apkparser.model.AndroidComponent;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import it.unisannio.security.DoApp.model.IntentDataInfo;
 import it.unisannio.security.DoApp.model.MalIntent;
 
@@ -19,8 +21,7 @@ public class RandomURIGenerator {
         MalIntent mal = new MalIntent(datafield);
         mal.setType(datafield.mimeType);
 
-        //dovrebbe essere random
-        mal.putExtra(Intent.EXTRA_STREAM, Uri.parse("ciao"));
+        mal.putExtra(Intent.EXTRA_STREAM, Uri.parse(RandomStringUtils.randomAlphanumeric(10)));
 
         return mal;
     }

@@ -7,6 +7,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import it.unisannio.security.DoApp.activities.EndActivity;
+import it.unisannio.security.DoApp.generators.MalIntentGenerator;
 import it.unisannio.security.DoApp.model.Commons;
 import it.unisannio.security.DoApp.model.ExceptionReport;
 import it.unisannio.security.DoApp.model.LogCatMessage;
