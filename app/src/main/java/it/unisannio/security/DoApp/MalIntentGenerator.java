@@ -6,6 +6,7 @@ import android.util.Log;
 import it.unisannio.security.DoApp.generators.nullgenerator.NullIntentGenerator;
 import it.unisannio.security.DoApp.generators.randomgenerator.RandomStringGenerator;
 import it.unisannio.security.DoApp.generators.randomgenerator.RandomURIGenerator;
+import it.unisannio.security.DoApp.generators.semivalidgenerator.GenericFileURIGenerator;
 import it.unisannio.security.DoApp.model.IntentDataInfo;
 import it.unisannio.security.DoApp.model.MalIntent;
 
@@ -93,7 +94,6 @@ public class MalIntentGenerator {
                     Log.i("GENERATOR", "caso default");
                     //Null Intent - type unset
                     m = new MalIntent(data);
-                    // m.setAction(Intent.ACTION_VIEW);
                     if (!intents.contains(m))
                         intents.add(m);
 
@@ -109,6 +109,11 @@ public class MalIntentGenerator {
 
                     //Random URI
                     m = RandomURIGenerator.getRandomURIMalIntent(data);
+                    if (!intents.contains(m))
+                        intents.add(m);
+
+                    //Semivalid URI to file
+                    m = GenericFileURIGenerator.getSemivalidFileURIMalIntent(data);
                     if (!intents.contains(m))
                         intents.add(m);
 

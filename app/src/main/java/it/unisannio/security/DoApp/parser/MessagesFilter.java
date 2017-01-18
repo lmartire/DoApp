@@ -52,8 +52,6 @@ public class MessagesFilter {
                 String currTime = m.getTime();
                 exceptionReport = new ExceptionReport();
 
-                Log.e("APPNAME", m.getAppName());
-
                 SimpleDateFormat formatter = new SimpleDateFormat("MM-dd HH:mm:ss.SSS");
                 Date messageTime = null;
                 try {
