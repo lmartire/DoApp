@@ -4,7 +4,7 @@
     android:id="@+id/activity_app_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.unisannio.user.DoApp.it.unisannio.user.DoApp.AppListActivity">
+    tools:context="it.unisannio.security.DoApp.activities.AppListActivity">
 
     <ProgressBar
         android:id="@+id/progressbar"
