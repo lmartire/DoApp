@@ -187,12 +187,7 @@ public class MalIntentGenerator {
             }
         }
 
-        for (MalIntent x : intents){
-            Log.i ("TO-string", x.toString());
-        }
-
-        return new ArrayList<>();
-        //return intents;
+        return intents;
     }
 
     private static void setActionForAll(String action, List<MalIntent> malIntents){

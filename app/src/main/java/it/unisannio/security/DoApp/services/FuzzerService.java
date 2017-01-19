@@ -42,8 +42,8 @@ public class FuzzerService extends IntentService {
             if(pkgname!=null && !pkgname.isEmpty()) {
 
                 //pulisco il logcat .... funziona abbastanza spesso da rendere la cosa decente
-                /*killAll("logcat");
-                clearLogCat();*/
+                killAll("logcat");
+                clearLogCat();
 
 
                 fuzz(pkgname);
