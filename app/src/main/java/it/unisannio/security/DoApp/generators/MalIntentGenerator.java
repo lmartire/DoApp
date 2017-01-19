@@ -1,7 +1,5 @@
 package it.unisannio.security.DoApp.generators;
 
-import android.content.Intent;
-import android.util.Log;
 
 import it.unisannio.security.DoApp.generators.nullgenerator.NullIntentGenerator;
 import it.unisannio.security.DoApp.generators.randomgenerator.RandomStringGenerator;
@@ -52,7 +50,6 @@ public class MalIntentGenerator {
         }
 
         return intents;
-
     }
 
 
@@ -66,6 +63,7 @@ public class MalIntentGenerator {
 
         List<MalIntent> intents = new ArrayList<MalIntent>();
         MalIntent m;
+
         if (data.mimeType != null) {
             switch (data.mimeType) {
                 case "text/plain":

@@ -30,7 +30,7 @@ public class MalIntent extends Intent{
     }
 
     //empty constructor
-    private MalIntent(){}
+    private MalIntent(){super();}
 
     public AndroidComponent getTargetComponent() {
         return targetComponent;
@@ -47,6 +47,7 @@ public class MalIntent extends Intent{
         if(this.getExtras()!=null)
             cloned.putExtras(this.getExtras());
         cloned.setTargetComponent(this.targetComponent);
+        cloned.setData(this.getData());
 
         return cloned;
     }
@@ -66,7 +67,8 @@ public class MalIntent extends Intent{
             else {
                 // dynamic binding (speriamo che va)
                 return equalsObject(b.get(Intent.EXTRA_TEXT), b1.get(Intent.EXTRA_TEXT)) &&
-                        equalsObject(b.get(Intent.EXTRA_STREAM), b1.get(EXTRA_STREAM));
+                        equalsObject(b.get(Intent.EXTRA_STREAM), b1.get(EXTRA_STREAM)) &&
+                        equalsObject(this.getData(), mal1.getData());
             }
         }
         return false;

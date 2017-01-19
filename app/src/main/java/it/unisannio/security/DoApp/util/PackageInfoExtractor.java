@@ -157,6 +157,5 @@ public class PackageInfoExtractor {
             }
         }
         return dataInfoList;
-        //return new ArrayList<IntentDataInfo>();
     }
 }
