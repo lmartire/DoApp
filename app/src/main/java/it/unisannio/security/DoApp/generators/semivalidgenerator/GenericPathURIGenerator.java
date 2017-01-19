@@ -15,7 +15,7 @@ public class GenericPathURIGenerator {
         MalIntent mal = new MalIntent(datafield);
         String scheme = datafield.scheme;
         String host = datafield.host;
-        String semiValidPath = datafield.path + "/" +RandomStringUtils.random(10);
+        String semiValidPath = datafield.path + "/" +RandomStringUtils.randomAlphanumeric(10);
         mal.setData(Uri.parse(scheme+ "://" + host + "/" + semiValidPath));
         return mal;
     }

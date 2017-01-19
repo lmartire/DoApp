@@ -15,7 +15,7 @@ public class GenericPathPortURIGenerator {
         String scheme = datafield.scheme;
         String host = datafield.host;
         String port = datafield.port;
-        String semiValidPath = datafield.path +"/" +RandomStringUtils.random(10);
+        String semiValidPath = datafield.path +"/" +RandomStringUtils.randomAlphanumeric(10);
         mal.setData(Uri.parse(scheme+ "://" + host + ":" + port+ "/" +semiValidPath));
         return mal;
     }

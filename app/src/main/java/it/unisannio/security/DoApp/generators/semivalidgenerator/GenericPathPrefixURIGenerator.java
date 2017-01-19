@@ -13,7 +13,7 @@ public class GenericPathPrefixURIGenerator {
         MalIntent mal = new MalIntent(datafield);
         String scheme = datafield.scheme;
         String host = datafield.host;
-        String semiValidPathPrefix = datafield.pathPrefix +"/"+ RandomStringUtils.random(10);
+        String semiValidPathPrefix = datafield.pathPrefix +"/"+ RandomStringUtils.randomAlphanumeric(10);
         mal.setData(Uri.parse(scheme + "://" + host + "/" + semiValidPathPrefix));
         return mal;
     }

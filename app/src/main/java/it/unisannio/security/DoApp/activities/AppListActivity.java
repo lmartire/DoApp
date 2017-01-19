@@ -19,8 +19,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import it.unisannio.security.DoApp.FuzzerService;
-import it.unisannio.security.DoApp.PackageInfoExtractor;
+import it.unisannio.security.DoApp.services.FuzzerService;
+import it.unisannio.security.DoApp.util.PackageInfoExtractor;
 import it.unisannio.security.DoApp.R;
 import it.unisannio.security.DoApp.adapters.AppInfoAdapter;
 import it.unisannio.security.DoApp.model.AppInfo;

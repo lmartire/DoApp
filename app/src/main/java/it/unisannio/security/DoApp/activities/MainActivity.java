@@ -7,7 +7,7 @@ import android.view.View;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import it.unisannio.security.DoApp.FuzzerService;
+import it.unisannio.security.DoApp.services.FuzzerService;
 import it.unisannio.security.DoApp.R;
 import it.unisannio.security.DoApp.model.Commons;
 

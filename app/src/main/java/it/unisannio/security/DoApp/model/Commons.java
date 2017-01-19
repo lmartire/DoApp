@@ -8,7 +8,7 @@ public class Commons {
 
     // public static int ABOUT = 3;
 
-    // sono i tre stadi per lil progressbar di applistactivity
+    // sono i tre stadi per il progressbar di applistactivity
     public static final int MSG_PROCESSING = 0;
     public static final int MSG_DONE = 1;
     public static final int MSG_ERROR = 2;

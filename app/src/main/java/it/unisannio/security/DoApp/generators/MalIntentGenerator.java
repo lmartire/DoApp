@@ -7,6 +7,13 @@ import it.unisannio.security.DoApp.generators.nullgenerator.NullIntentGenerator;
 import it.unisannio.security.DoApp.generators.randomgenerator.RandomStringGenerator;
 import it.unisannio.security.DoApp.generators.randomgenerator.RandomURIGenerator;
 import it.unisannio.security.DoApp.generators.semivalidgenerator.GenericFileURIGenerator;
+import it.unisannio.security.DoApp.generators.semivalidgenerator.GenericHostURIGenerator;
+import it.unisannio.security.DoApp.generators.semivalidgenerator.GenericPathPortURIGenerator;
+import it.unisannio.security.DoApp.generators.semivalidgenerator.GenericPathPrefixPortURIGenerator;
+import it.unisannio.security.DoApp.generators.semivalidgenerator.GenericPathPrefixURIGenerator;
+import it.unisannio.security.DoApp.generators.semivalidgenerator.GenericPathURIGenerator;
+import it.unisannio.security.DoApp.generators.semivalidgenerator.GenericPortURIGenerator;
+import it.unisannio.security.DoApp.generators.semivalidgenerator.GenericSchemeURIGenerator;
 import it.unisannio.security.DoApp.model.IntentDataInfo;
 import it.unisannio.security.DoApp.model.MalIntent;
 
@@ -119,17 +126,73 @@ public class MalIntentGenerator {
 
                     break;
             }
-        } else if (data.scheme != null) {
-
-            if (data.host != null) {
-
-            } else {
-
-            }
-
         }
 
-        return intents;
+        //tengo solo lo scheme
+        if (data.scheme != null && data.host == null) {
+            // scheme  + random
+            m = GenericSchemeURIGenerator.getSemivalidSchemeURIMalIntent(data);
+            intents.add(m);
+        }
+
+        //tengo solo scheme e host
+        if (data.scheme != null && data.host != null && data.port == null
+                 && data.path == null && data.pathPrefix == null && data.pathPattern == null){
+            //scheme + host + random
+            m = GenericHostURIGenerator.getSemivalidSchemeHostURIMalIntent(data);
+            intents.add(m);
+        }
+
+        //(a ^ b ^ c ) ^ ( a && b && c )
+
+        //la porta potrebbe esserci o no
+        //la porta ci sta e non ci stanno i tre path*
+        if (data.scheme != null && data.host != null && data.port != null &&
+                data.path == null && data.pathPrefix == null && data.pathPattern == null) {
+            m = GenericPortURIGenerator.getSemivalidSchemeHostPortURIMalIntent(data);
+            intents.add(m);
+        }
+
+        //la porta ci sta e ci sta uno dei tre path*
+        if (data.scheme != null && data.host != null && data.port != null &&
+                (data.path != null || data.pathPrefix != null || data.pathPattern != null)){
+            //scheme + host + port + random
+
+            if (data.path != null){
+                m = GenericPathPortURIGenerator.getSemivalidSchemeHostPortPathURIMalIntent(data);
+                intents.add(m);
+            }
+            if (data.pathPrefix != null){
+                m = GenericPathPrefixPortURIGenerator.getSemivalidSchemeHostPortPathPrefixURIMalIntent(data);
+                intents.add(m);
+            }
+            if (data.pathPattern != null){
+                //TODO
+            }
+        }
+
+        //la porta non ci sta e ci stanno i tre path*
+        if (data.scheme != null && data.host != null && data.port == null &&
+                (data.path != null || data.pathPrefix != null || data.pathPattern != null)) {
+            if (data.path != null){
+                m = GenericPathURIGenerator.getSemivalidSchemeHostPathURIMalIntent(data);
+                intents.add(m);
+            }
+            if (data.pathPrefix != null){
+                m = GenericPathPrefixURIGenerator.getSemivalidSchemeHostPathPrefixURIMalIntent(data);
+                intents.add(m);
+            }
+            if (data.pathPattern != null){
+                //TODO
+            }
+        }
+
+        for (MalIntent x : intents){
+            Log.i ("TO-string", x.toString());
+        }
+
+        return new ArrayList<>();
+        //return intents;
     }
 
     private static void setActionForAll(String action, List<MalIntent> malIntents){

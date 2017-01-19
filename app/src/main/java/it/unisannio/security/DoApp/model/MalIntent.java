@@ -82,10 +82,10 @@ public class MalIntent extends Intent{
 
     public String toString(){
         return "type: "+((getType()==null)? "null" : getType()) +
-                " - Action:" + ((getAction() == null) ? "null" : getAction())+
-                " - Extra Text: "+((getExtras()==null) || ((getExtras().get(Intent.EXTRA_TEXT) == null))? "null" : getExtras().get(Intent.EXTRA_TEXT)) +
-                " - Extra Stream: "+((getExtras()==null) || ((getExtras().get(Intent.EXTRA_STREAM) == null))? "null" : getExtras().get(Intent.EXTRA_STREAM));
-
+                "\n - Action:" + ((getAction() == null) ? "null" : getAction())+
+                "\n - Extra Text: "+((getExtras()==null) || ((getExtras().get(Intent.EXTRA_TEXT) == null))? "null" : getExtras().get(Intent.EXTRA_TEXT)) +
+                "\n - Extra Stream: "+((getExtras()==null) || ((getExtras().get(Intent.EXTRA_STREAM) == null))? "null" : getExtras().get(Intent.EXTRA_STREAM)) +
+                "\n - Data: " + ((getData() == null ) ? "null" : getData().toString());
     }
 
 

@@ -15,7 +15,7 @@ public class GenericPortURIGenerator {
         MalIntent mal = new MalIntent(datafield);
         String scheme = datafield.scheme;
         String host = datafield.host;
-        String semivalidPort = datafield.port+"/"+RandomStringUtils.random(10);
+        String semivalidPort = datafield.port+"/"+RandomStringUtils.randomAlphanumeric(10);
         mal.setData(Uri.parse(scheme+ "://" + host + ":" + semivalidPort ));
         return mal;
     }

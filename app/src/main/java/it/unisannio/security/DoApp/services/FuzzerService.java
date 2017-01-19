@@ -1,4 +1,4 @@
-package it.unisannio.security.DoApp;
+package it.unisannio.security.DoApp.services;
 
 import android.app.IntentService;
 import android.content.ActivityNotFoundException;
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.util.Log;
 
+import it.unisannio.security.DoApp.util.PackageInfoExtractor;
+import it.unisannio.security.DoApp.util.ReportWriter;
 import it.unisannio.security.DoApp.activities.EndActivity;
 import it.unisannio.security.DoApp.generators.MalIntentGenerator;
 import it.unisannio.security.DoApp.model.Commons;
@@ -40,8 +42,8 @@ public class FuzzerService extends IntentService {
             if(pkgname!=null && !pkgname.isEmpty()) {
 
                 //pulisco il logcat .... funziona abbastanza spesso da rendere la cosa decente
-                killAll("logcat");
-                clearLogCat();
+                /*killAll("logcat");
+                clearLogCat();*/
 
 
                 fuzz(pkgname);
@@ -71,6 +73,7 @@ public class FuzzerService extends IntentService {
         //recupero la lista dei datatype degli IntentFilter esportati dall'app
         PackageInfoExtractor extractor = new PackageInfoExtractor(this);
         List<IntentDataInfo> datas = extractor.extractIntentFiltersDataType(pkgname);
+
 
         Log.i("*DEBUG", "creo gli intent malevoli");
         //ottengo la lista degli intent malevoli

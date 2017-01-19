@@ -13,7 +13,7 @@ public class GenericSchemeURIGenerator {
 
         MalIntent mal = new MalIntent(datafield);
         String scheme = datafield.scheme;
-        String host = RandomStringUtils.random(10);
+        String host = RandomStringUtils.randomAlphanumeric(10);
         mal.setData(Uri.parse(scheme+ "://" + host));
         return mal;
     }

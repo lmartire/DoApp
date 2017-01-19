@@ -16,7 +16,7 @@ public class GenericPathPrefixPortURIGenerator {
         String scheme = datafield.scheme;
         String host = datafield.host;
         String port = datafield.port;
-        String semiValidPathPrefix = datafield.pathPrefix +"/"+ RandomStringUtils.random(10);
+        String semiValidPathPrefix = datafield.pathPrefix +"/"+ RandomStringUtils.randomAlphanumeric(10);
         mal.setData(Uri.parse(scheme + "://" + host + ":" + port + "/" + semiValidPathPrefix));
         return mal;
     }
