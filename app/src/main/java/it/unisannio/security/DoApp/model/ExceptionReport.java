@@ -91,9 +91,12 @@ public class ExceptionReport {
             PointOfFailure pof = iterator.next();
             stack_string = stack_string+"\t"+pof.getClassName()+":"+pof.getLineNumber()+"\n";
         }
-        return "pkgnName: "+processName+"\n"+"appName: "+appName+"\n"+"PID: "+PID+"\n"+
-                ((malIntent==null)?"Impossibile recuperare MalIntent" : malIntent.toString()) +
-                "\n" + "ExceptionType: "+type+"\n"
-                + "Stacktrace: \n"+stack_string;
+        return "ExceptionReport: "+
+                "\n\t Package Name: "+processName+
+                "\n\t Component Name: "+appName+
+                "\n\t PID del crash: "+PID+
+                "\n\t"+ ((malIntent==null)?"Impossibile recuperare MalIntent" : malIntent.toString()) +
+                "\n\t" + "ExceptionType: "+type+"" +
+                "\n\t Stacktrace: \n"+stack_string;
     }
 }

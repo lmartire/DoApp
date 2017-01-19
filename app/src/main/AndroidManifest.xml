@@ -27,7 +27,8 @@
 
         <activity android:name=".activities.AppListActivity" />
         <activity android:name=".activities.EndActivity" />
-        <activity android:name=".activities.ViewReportActivity"></activity>
+        <activity android:name=".activities.ViewReportActivity" />
+        <activity android:name=".activities.CounterActivity"></activity>
     </application>
 
 </manifest>

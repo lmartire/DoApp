@@ -51,14 +51,6 @@ public class MalIntentGenerator {
 
         }
 
-
-        Log.i("GENERATOR", "numero intent: "+intents.size());
-        //STAMPA
-        Log.i("*MALINTENT", "ACTION");
-        for(MalIntent m : intents){
-            Log.i("*MALINTENT", m.toString());
-        }
-
         return intents;
 
     }
@@ -75,8 +67,6 @@ public class MalIntentGenerator {
         List<MalIntent> intents = new ArrayList<MalIntent>();
         MalIntent m;
         if (data.mimeType != null) {
-            Log.i("GENERATOR", "controllo il mimetype " + data.mimeType);
-
             switch (data.mimeType) {
                 case "text/plain":
 
@@ -97,8 +87,6 @@ public class MalIntentGenerator {
 
                     break;
                 default:
-
-                    Log.i("GENERATOR", "caso default");
                     //Null Intent - type unset
                     m = new MalIntent(data);
                     if (!intents.contains(m))
