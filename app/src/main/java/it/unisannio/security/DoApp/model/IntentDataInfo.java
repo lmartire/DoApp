@@ -20,8 +20,6 @@ public class IntentDataInfo extends IntentFilter.IntentData{
         this.component = component;
         this.packageName = packageName;
         this.filter = filter;
-        Log.i("*****FILTERS: ", component.name+ ":   " + scheme +
-                " " + host + " " + port + " " + path + " " + pathPrefix + " " +pathPattern);
     }
 
     public AndroidComponent getComponent(){
