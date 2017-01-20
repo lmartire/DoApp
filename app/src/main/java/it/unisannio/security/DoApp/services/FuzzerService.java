@@ -7,6 +7,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import it.unisannio.security.DoApp.activities.CounterActivity;
+import it.unisannio.security.DoApp.model.Triager;
 import it.unisannio.security.DoApp.util.PackageInfoExtractor;
 import it.unisannio.security.DoApp.util.ReportWriter;
 import it.unisannio.security.DoApp.activities.EndActivity;
@@ -163,7 +164,7 @@ public class FuzzerService extends IntentService {
                 if((ex.getAppName().contains(pkgname) || ex.getProcessName().equalsIgnoreCase(pkgname)) && (ex.getPID() == appPid)){
                     if(lastTime==null || (ex.getTime().after(lastTime))) {
 
-                        ex.setMalIntent(malIntent);
+                        ex.addMalIntent(malIntent);
                         results.add(ex);
 
                         Log.i("DoAppLOG", "Trovato crash:");
@@ -192,8 +193,10 @@ public class FuzzerService extends IntentService {
 
         //TODO: effettuare il triage sulla lista di ExceptionReport
 
-        if(results.size()>0)
+        if(results.size()>0) {
             pathFile = ReportWriter.scriviSuFile(results, pkgname);
+            List<ExceptionReport> finalResults = Triager.triage(results);
+        }
 
 
         Log.i("DoAppLOG", "Fuzzing Completato!");
