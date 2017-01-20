@@ -18,6 +18,8 @@ import it.unisannio.security.DoApp.model.MalIntent;
 import it.unisannio.security.DoApp.parser.LogCatMessageParser;
 import it.unisannio.security.DoApp.parser.MessagesFilter;
 import it.unisannio.security.DoApp.model.IntentDataInfo;
+import it.unisannio.security.DoApp.util.UnixCommands;
+
 import com.jaredrummler.apkparser.model.AndroidComponent;
 
 import java.io.BufferedReader;
@@ -46,8 +48,8 @@ public class FuzzerService extends IntentService {
                 Log.i("DoAppLOG", "Start fuzzing to "+pkgname);
 
                 //pulisco il logcat
-                killAll("logcat");
-                clearLogCat();
+                UnixCommands.killAll("logcat");
+                UnixCommands.clearLogCat();
 
 
                 fuzz(pkgname);
@@ -100,6 +102,12 @@ public class FuzzerService extends IntentService {
         int num=1;
         for(MalIntent malIntent : malIntents){
 
+            //cancello il logcat ogni 100 elementi
+            if (num % 100 == 0){
+                UnixCommands.clearLogCat();
+                Log.i("CANCELLAZIONE", "cancello il logcat all'iterazione: "+num);
+            }
+
             Log.i("DoAppLOG", "Invio MalIntent n."+ num);
             Log.i("DoAppLOG", "\t"+ malIntent.toString());
 
@@ -135,7 +143,7 @@ public class FuzzerService extends IntentService {
 
             //analizzo il logcat alla ricerca di un crash
             Log.i("DoAppLOG", "Analizzo LogCat...");
-            List<String> lines = readLogCat();
+            List<String> lines = UnixCommands.readLogCat();
 
             LogCatMessageParser parser = new LogCatMessageParser();
 
@@ -147,7 +155,7 @@ public class FuzzerService extends IntentService {
 
             SystemClock.sleep(1000);
 
-            int appPid = getAppPID(pkgname);
+            int appPid = UnixCommands.getAppPID(pkgname);
             Log.i("DoAppLOG", "PID dell'app: "+String.valueOf(appPid));
 
             for(ExceptionReport ex : reports){
@@ -169,7 +177,7 @@ public class FuzzerService extends IntentService {
 
             //l'app viene killata in qualsiasi caso per rendere il test stateless
             Log.i("DoAppLOG", "Kill app");
-            killAll(pkgname);
+            UnixCommands.killAll(pkgname);
 
             SystemClock.sleep(200);
 
@@ -191,93 +199,5 @@ public class FuzzerService extends IntentService {
         Log.i("DoAppLOG", "Fuzzing Completato!");
     }
 
-    private void clearLogCat(){
-        try {
-            Runtime.getRuntime().exec(new String[]{"su", "-c","logcat -c"});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    private List<String> readLogCat(){
-        BufferedReader bufferedReader;
-        List<String> lines = new ArrayList<String>();
-
-        String[] commands = {"su", "-c","logcat -d -v long"};
-        java.lang.Process process;
-        try {
-            process = Runtime.getRuntime().exec(commands);
-            bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                lines.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return lines;
-
-    }
-
-
-    private List<String> readLogCat(java.lang.Process suProcess){
-        BufferedReader bufferedReader;
-        List<String> lines = new ArrayList<String>();
-
-        try {
-            DataOutputStream os = new DataOutputStream(suProcess.getOutputStream());
-            os.writeBytes("logcat -d -v long \n");
-            os.flush();
-            bufferedReader = new BufferedReader(new InputStreamReader(suProcess.getInputStream()));
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                lines.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return lines;
-
-    }
-
-    private void killApp(int PID){
-        java.lang.Process suProcess = null;
-        String[] commands = {"su", "-c","kill "+PID};
-        try {
-            suProcess = Runtime.getRuntime().exec(commands);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public int getAppPID(String pkgname) {
-        BufferedReader bufferedReader;
-        String[] commands = {"su", "-c","pidof "+pkgname};
-        java.lang.Process process;
-        String line = null;
-        try {
-            process = Runtime.getRuntime().exec(commands);
-            bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            line = bufferedReader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if(line!=null)
-            return Integer.parseInt(line);
-        else
-            return -1;
-    }
-
-    private void killAll(String processName){
-        java.lang.Process suProcess = null;
-        String[] commands = {"su", "-c","killall -9 " + processName};
-        try {
-            suProcess = Runtime.getRuntime().exec(commands);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
