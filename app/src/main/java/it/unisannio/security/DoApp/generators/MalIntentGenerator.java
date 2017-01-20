@@ -6,6 +6,8 @@ import it.unisannio.security.DoApp.generators.randomgenerator.RandomStringGenera
 import it.unisannio.security.DoApp.generators.randomgenerator.RandomURIGenerator;
 import it.unisannio.security.DoApp.generators.semivalidgenerator.GenericFileURIGenerator;
 import it.unisannio.security.DoApp.generators.semivalidgenerator.GenericHostURIGenerator;
+import it.unisannio.security.DoApp.generators.semivalidgenerator.GenericPathPatternPortURIGenrator;
+import it.unisannio.security.DoApp.generators.semivalidgenerator.GenericPathPatternURIGenerator;
 import it.unisannio.security.DoApp.generators.semivalidgenerator.GenericPathPortURIGenerator;
 import it.unisannio.security.DoApp.generators.semivalidgenerator.GenericPathPrefixPortURIGenerator;
 import it.unisannio.security.DoApp.generators.semivalidgenerator.GenericPathPrefixURIGenerator;
@@ -153,7 +155,8 @@ public class MalIntentGenerator {
                 intents.add(m);
             }
             if (data.pathPattern != null){
-                //TODO
+                m = GenericPathPatternPortURIGenrator.getSemivalidSchemeHostPortPathPatternURIMalIntent(data);
+                intents.add(m);
             }
         }
 
@@ -169,7 +172,7 @@ public class MalIntentGenerator {
                 intents.add(m);
             }
             if (data.pathPattern != null){
-                //TODO
+                m = GenericPathPatternURIGenerator.getSemivalidSchemeHostPortPathPatternURIMalIntent(data);
             }
         }
 
