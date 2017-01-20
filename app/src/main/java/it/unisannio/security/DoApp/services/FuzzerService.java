@@ -103,11 +103,6 @@ public class FuzzerService extends IntentService {
         int num=1;
         for(MalIntent malIntent : malIntents){
 
-            //cancello il logcat ogni 100 elementi
-            if (num % 100 == 0){
-                UnixCommands.clearLogCat();
-                Log.i("CANCELLAZIONE", "cancello il logcat all'iterazione: "+num);
-            }
 
             Log.i("DoAppLOG", "Invio MalIntent n."+ num);
             Log.i("DoAppLOG", "\t"+ malIntent.toString());
