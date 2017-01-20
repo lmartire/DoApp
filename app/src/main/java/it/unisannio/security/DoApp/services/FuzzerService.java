@@ -196,6 +196,7 @@ public class FuzzerService extends IntentService {
         if(results.size()>0) {
             pathFile = ReportWriter.scriviSuFile(results, pkgname);
             List<ExceptionReport> finalResults = Triager.triage(results);
+            pathFile = ReportWriter.scriviSuFile(finalResults, pkgname);
         }
 
 
