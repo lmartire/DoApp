@@ -131,9 +131,11 @@ public class FuzzerService extends IntentService {
                 }
             }
             catch(ActivityNotFoundException e){
+                Log.i("DoAppLOG", "ActivityNotFound: "+ malIntent.getComponent().getClassName());
                 e.printStackTrace();
             }
             catch (SecurityException se){
+                Log.i("DoAppLOG", "SecurityException: "+ malIntent.getComponent().getClassName());
                 se.printStackTrace();
             }
 
