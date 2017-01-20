@@ -5,6 +5,7 @@ package it.unisannio.security.DoApp.model;
  */
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Stack;
@@ -21,10 +22,11 @@ public class ExceptionReport {
     private Date time;
     private String type;
     private Stack<PointOfFailure> stacktrace;
-    private MalIntent malIntent;
+    private ArrayList<MalIntent> malIntents;
 
     public ExceptionReport(){
         stacktrace = new Stack<PointOfFailure>();
+        malIntents = new ArrayList<MalIntent>();
     }
 
     public String getAppName() {
@@ -75,12 +77,34 @@ public class ExceptionReport {
         stacktrace.push(pof);
     }
 
-    public MalIntent getMalIntent() {
-        return malIntent;
+    public ArrayList<MalIntent> getMalIntents() {
+        return malIntents;
     }
 
-    public void setMalIntent(MalIntent malIntent) {
-        this.malIntent = malIntent;
+    public void addMalIntent(MalIntent malIntent) {
+        if(malIntent!=null)
+            malIntents.add(malIntent);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ExceptionReport that = (ExceptionReport) o;
+
+        if (appName != null ? !appName.equals(that.appName) : that.appName != null) return false;
+        if (processName != null ? !processName.equals(that.processName) : that.processName != null)
+            return false;
+        if (type != null ? !type.equals(that.type) : that.type != null) return false;
+        if (stacktrace.size()!=that.stacktrace.size()) return false;
+
+        for(int i = 0; i<stacktrace.size(); i++){
+            if(!stacktrace.get(i).equals(that.stacktrace.get(i)))
+                return false;
+        }
+        return true;
+
     }
 
 
@@ -91,11 +115,16 @@ public class ExceptionReport {
             PointOfFailure pof = iterator.next();
             stack_string = stack_string+"\t"+pof.getClassName()+":"+pof.getLineNumber()+"\n";
         }
+
+        String malintent_string="";
+        for(MalIntent m : malIntents)
+            malintent_string+= "\n "+m.toString();
+
         return "ExceptionReport: "+
                 "\n\t Package Name: "+processName+
                 "\n\t Component Name: "+appName+
                 "\n\t PID del crash: "+PID+
-                "\n\t"+ ((malIntent==null)?"Impossibile recuperare MalIntent" : malIntent.toString()) +
+                "\n\t"+ ((malintent_string.isEmpty())?"Impossibile recuperare MalIntent" : malintent_string) +
                 "\n\t" + "ExceptionType: "+type+"" +
                 "\n\t Stacktrace: \n"+stack_string;
     }
