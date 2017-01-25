@@ -16,7 +16,10 @@ public class GenericPathPatternPortURIGenrator {
         String host = datafield.host;
         String port = datafield.port;
         String pathPattern = datafield.pathPattern;
-        String semivalidPathPattern = pathPattern + "/" + RandomStringUtils.randomAlphanumeric(10);
+        String semivalidPathPattern = pathPattern.replace(".*", RandomStringUtils.randomAlphabetic(10));
+
+
+
 
         if (pathPattern.charAt(0) != '/')
             mal.setData(Uri.parse(scheme + "://" + host + ":" + port + "/" + semivalidPathPattern));

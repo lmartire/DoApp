@@ -15,7 +15,7 @@ public class GenericPathPatternURIGenerator {
         String scheme = datafield.scheme;
         String host = datafield.host;
         String pathPattern = datafield.pathPattern;
-        String semivalidPathPattern = pathPattern + "/" + RandomStringUtils.randomAlphanumeric(10);
+        String semivalidPathPattern = pathPattern.replace(".*", RandomStringUtils.randomAlphabetic(10));
 
         if (pathPattern.charAt(0) != '/')
             mal.setData(Uri.parse(scheme + "://" + host + ":" + "/" + semivalidPathPattern));
