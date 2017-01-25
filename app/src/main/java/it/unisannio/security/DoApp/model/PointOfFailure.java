@@ -23,4 +23,17 @@ public class PointOfFailure {
     public void setLineNumber(int lineNumber) {
         this.lineNumber = lineNumber;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PointOfFailure that = (PointOfFailure) o;
+
+        if (lineNumber != that.lineNumber) return false;
+        return className != null ? className.equals(that.className) : that.className == null;
+
+    }
+
 }

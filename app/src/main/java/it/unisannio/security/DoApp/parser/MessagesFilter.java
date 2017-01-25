@@ -61,8 +61,6 @@ public class MessagesFilter {
                     e.printStackTrace();
                 }
 
-                Log.i("*DEBUG", messageTime.toString());
-
                 //pid = -1 if impossible to find
                 int pid;
                 if(m.getPid()!=null && !m.getPid().isEmpty())
