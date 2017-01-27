@@ -142,7 +142,9 @@ public class MessagesFilter {
     public static String extractClass(String message){
         int start = message.indexOf('(')+1;
         int stop = message.lastIndexOf(':');
-        return message.substring(start,stop);
+        if(start!=-1 && stop!=-1)
+            return message.substring(start,stop);
+        else return "null";
     }
 
     /**
