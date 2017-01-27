@@ -13,6 +13,7 @@ import com.jaredrummler.apkparser.model.IntentFilter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -22,12 +23,14 @@ import java.util.List;
 public class PackageInfoExtractor {
 
     private Context context;
+    private String pkgname;
 
-    public PackageInfoExtractor(Context context){
+    public PackageInfoExtractor(Context context, String pkgname){
         this.context = context;
+        this.pkgname = pkgname;
     }
 
-    public List<AndroidComponent> extractComponents(String pkgname){
+    public List<AndroidComponent> extractComponents(){
         ApkParser manifestParser = null;
         List<AndroidComponent> components = new ArrayList<AndroidComponent>();
         try {
@@ -50,8 +53,8 @@ public class PackageInfoExtractor {
         return components;
     }
 
-    public List<IntentDataInfo> extractIntentFiltersDataType(String pkgname){
-        List<AndroidComponent> components = extractComponents(pkgname);
+    public List<IntentDataInfo> extractIntentFiltersDataType(){
+        List<AndroidComponent> components = extractComponents();
         List<IntentDataInfo> dataInfoList = new ArrayList<IntentDataInfo>();
 
         for (AndroidComponent component : components) {
@@ -158,4 +161,26 @@ public class PackageInfoExtractor {
         }
         return dataInfoList;
     }
+
+    //numero di componenti che hanno intentFilter e relativi campi <data>
+    public int getNumberComponentWithIntentFilters(){
+        int count = 0;
+        List<AndroidComponent> components = extractComponents();
+        for (AndroidComponent component : components) {
+            //se il componente non esporta intent-filter o non ha campi data, non ci interessa
+            boolean set = false;
+            if (!component.intentFilters.isEmpty()){
+                for(int j = 0; j<component.intentFilters.size() && !set; j++){
+                    if(!component.intentFilters.get(j).dataList.isEmpty()){
+                        count++;
+                        set = true;
+                    }
+                }
+            }
+
+        }
+        return count;
+    }
 }
+
+

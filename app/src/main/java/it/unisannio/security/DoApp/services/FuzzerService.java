@@ -78,8 +78,10 @@ public class FuzzerService extends IntentService {
         Log.i("DoAppLOG", "Analizzo il manifest...");
 
         //recupero la lista dei datatype degli IntentFilter esportati dall'app
-        PackageInfoExtractor extractor = new PackageInfoExtractor(this);
-        List<IntentDataInfo> datas = extractor.extractIntentFiltersDataType(pkgname);
+        PackageInfoExtractor extractor = new PackageInfoExtractor(this, pkgname);
+        Log.i("DoAppLOG", "Componenti da testare: " + extractor.getNumberComponentWithIntentFilters());
+
+        List<IntentDataInfo> datas = extractor.extractIntentFiltersDataType();
 
 
         Log.i("DoAppLOG", "Creo i MalIntent...");
@@ -153,13 +155,22 @@ public class FuzzerService extends IntentService {
 
             SystemClock.sleep(1000);
 
-            int appPid = UnixCommands.getAppPID(pkgname);
-            Log.i("DoAppLOG", "PID dell'app: "+String.valueOf(appPid));
+            List<Integer> appPIDs = UnixCommands.getAppPID(pkgname);
+
+            //stampo i/il pid del processo sul log
+            String pidsString="";
+            for(Integer i : appPIDs)
+                pidsString += (" "+i.toString());
+            Log.i("DoAppLOG", "PID dell'app: "+pidsString);
 
             for(ExceptionReport ex : reports){
 
-                if((ex.getAppName().contains(pkgname) || ex.getProcessName().equalsIgnoreCase(pkgname)) && (ex.getPID() == appPid)){
+                if((ex.getAppName().contains(pkgname) || ex.getProcessName().equalsIgnoreCase(pkgname)) && (appPIDs.contains(ex.getPID()))){
                     if(lastTime==null || (ex.getTime().after(lastTime))) {
+
+                        //se non è possibile recuperare il nome del componente dal LogCat, lo setto in riferimento a quello sotto test
+                        if(ex.getAppName().equals("null"))
+                            ex.setAppName(malIntent.getComponent().getClassName());
 
                         ex.addMalIntent(malIntent);
                         results.add(ex);

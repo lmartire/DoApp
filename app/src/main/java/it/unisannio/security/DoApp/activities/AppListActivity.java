@@ -92,10 +92,10 @@ public class AppListActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 AppInfo appInfo = (AppInfo) appInfoAdapter.getItem(position);
 
-                PackageInfoExtractor extractor = new PackageInfoExtractor(AppListActivity.this);
-                List<IntentDataInfo> datas = extractor.extractIntentFiltersDataType(appInfo.getPackageName());
+                PackageInfoExtractor extractor = new PackageInfoExtractor(AppListActivity.this, appInfo.getPackageName());
+                int testingComponent = extractor.getNumberComponentWithIntentFilters();
 
-                if(datas.isEmpty()){
+                if(testingComponent==0){
                     Toast.makeText(AppListActivity.this, "Intent-filter non presenti!", Toast.LENGTH_LONG).show();
                 }
                 else {

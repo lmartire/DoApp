@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Created by user on 20/01/2017.
@@ -74,23 +76,35 @@ public class UnixCommands {
         }
     }
 
-    public static int getAppPID(String pkgname) {
+    // se sono attivi più processi della stessa app il comando pidof restituisce tutti i pid
+    // dei processi separati da uno spazio
+    public static List<Integer> getAppPID(String pkgname) {
+        List<Integer> pids = new ArrayList<Integer>();
         BufferedReader bufferedReader;
         String[] commands = {"su", "-c","pidof "+pkgname};
         java.lang.Process process;
-        String line = null;
+        String line;
         try {
             process = Runtime.getRuntime().exec(commands);
             bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             line = bufferedReader.readLine();
+            if(line!=null) {
+                try {
+                    pids.add(Integer.parseInt(line));
+                } catch (NumberFormatException e) {
+                    StringTokenizer tokenizer = new StringTokenizer(line);
+                    while (tokenizer.hasMoreTokens()) {
+                        pids.add(Integer.parseInt(tokenizer.nextToken()));
+                    }
+                }
+            }
+            return pids;
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        if(line!=null)
-            return Integer.parseInt(line);
-        else
-            return -1;
+        return pids;
     }
 
     public static void killAll(String processName){
