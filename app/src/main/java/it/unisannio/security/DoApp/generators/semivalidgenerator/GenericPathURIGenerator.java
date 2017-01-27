@@ -18,7 +18,7 @@ public class GenericPathURIGenerator {
         String path = datafield.path;
         String semiValidPath;
 
-        if (path.charAt(0) == '/')
+        if (!path.isEmpty() && path.charAt(0) == '/')
             semiValidPath = path +"/"+ RandomStringUtils.randomAlphanumeric(10);
         else
             semiValidPath =  "/" + path + "/"+ RandomStringUtils.randomAlphanumeric(10);

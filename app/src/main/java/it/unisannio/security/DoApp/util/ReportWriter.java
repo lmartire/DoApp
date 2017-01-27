@@ -24,15 +24,14 @@ public class ReportWriter {
                 fa.mkdirs();
             int k=0;
 
-            String pathCompleta=Commons.path+"report"+k+".txt";
+            String pathCompleta=Commons.path+"report"+k+ pkgname.replace('.','-') + ".txt";
             File f = new File(pathCompleta);
             while (f.exists()){
                 ++k;
-                pathCompleta=Commons.path+"report" + k + ".txt";
+                pathCompleta=Commons.path+"report" + k + pkgname.replace('.','-') + ".txt";
                 f = new File(pathCompleta);
             }
 
-            Log.i("STAMPA", "HO APERTO SCRIVI SU FILE");
             FileOutputStream fileOutputStream = new FileOutputStream(f);
             PrintStream ps = new PrintStream(fileOutputStream);
 

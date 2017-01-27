@@ -167,6 +167,9 @@ public class MessagesFilter {
     public static String extractExceptionType(String message){
         int start = message.indexOf(':')+2;
         int stop = message.indexOf(':', start);
-        return message.substring(start,stop);
+        if(stop==-1)
+            return message.substring(start);
+        else
+            return message.substring(start,stop);
     }
 }
