@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +68,6 @@ public class AppInfo {
                           PackageManager.GET_DISABLED_COMPONENTS
                         | PackageManager.GET_ACTIVITIES
                         | PackageManager.GET_RECEIVERS
-                        | PackageManager.GET_INSTRUMENTATION
                         | PackageManager.GET_SERVICES
                         );
 
