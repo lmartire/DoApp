@@ -28,9 +28,9 @@ public class GenericPathPatternPortURIGenrator {
         } else {
             semivalidPathPattern = pathPattern.replace("*", RandomStringUtils.randomAlphabetic(10));
             if (pathPattern.charAt(0) == '/') {
-                mal.setData(Uri.parse(scheme + "://" + host + ":" + port + semivalidPathPattern));
+                mal.setData(Uri.parse(scheme + "://" + host + ":" + port + semivalidPathPattern.concat(RandomStringUtils.randomAlphabetic((5)))));
             }
-            mal.setData(Uri.parse(scheme + "://" + host + ":" + port + "/" + semivalidPathPattern));
+            mal.setData(Uri.parse(scheme + "://" + host + ":" + port + "/" + semivalidPathPattern.concat(RandomStringUtils.randomAlphabetic(5))));
         }
 
 
