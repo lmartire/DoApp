@@ -95,8 +95,12 @@ public class MessagesFilter {
                         //extract stacktrace
                         while(messageIterator.hasNext() && (m = messageIterator.next()).getMessage().contains("at")){
                             PointOfFailure pof = new PointOfFailure();
-                            pof.setClassName(MessagesFilter.extractClass(m.getMessage()));
-                            pof.setLineNumber(MessagesFilter.extractLineNumber(m.getMessage()));
+                            String classname = MessagesFilter.extractClass(m.getMessage());
+                            pof.setClassName(classname);
+                            if(classname.equals("null"))
+                                pof.setLineNumber(-1);
+                            else
+                                pof.setLineNumber(MessagesFilter.extractLineNumber(m.getMessage()));
                             exceptionReport.addPointOfFailure(pof);
                         }
                     }
