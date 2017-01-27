@@ -17,19 +17,25 @@ public class GenericPathPatternURIGenerator {
         String pathPattern = datafield.pathPattern;
         String semivalidPathPattern;
 
-
         if (pathPattern.contains(".*")) {
             semivalidPathPattern = pathPattern.replace(".*", RandomStringUtils.randomAlphabetic(10));
             if (pathPattern.charAt(0) == '/') {
                 mal.setData(Uri.parse(scheme + "://" + host + semivalidPathPattern));
             }
             mal.setData(Uri.parse(scheme + "://" + host + "/" + semivalidPathPattern));
-        } else {
+        } else if (pathPattern.contains("*")) {
             semivalidPathPattern = pathPattern.replace("*", RandomStringUtils.randomAlphabetic(10));
             if (pathPattern.charAt(0) == '/') {
-                mal.setData(Uri.parse(scheme + "://" + host + semivalidPathPattern.concat(RandomStringUtils.random(5))));
+                mal.setData(Uri.parse(scheme + "://" + host + semivalidPathPattern));
             }
-            mal.setData(Uri.parse(scheme + "://" + host + "/" + semivalidPathPattern.concat(RandomStringUtils.random(5))));
+            mal.setData(Uri.parse(scheme + "://" + host + "/" + semivalidPathPattern));
+        } else {
+            semivalidPathPattern = RandomStringUtils.randomAlphabetic(10);
+            if (pathPattern.charAt(0) == '/') {
+                mal.setData(Uri.parse(scheme + "://" + host + semivalidPathPattern));
+            }
+            mal.setData(Uri.parse(scheme + "://" + host + "/" + semivalidPathPattern));
+
         }
 
 
