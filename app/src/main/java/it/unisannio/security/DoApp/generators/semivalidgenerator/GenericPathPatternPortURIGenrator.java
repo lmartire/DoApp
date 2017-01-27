@@ -25,12 +25,19 @@ public class GenericPathPatternPortURIGenrator {
                 mal.setData(Uri.parse(scheme + "://" + host + ":" + port + semivalidPathPattern));
             }
             mal.setData(Uri.parse(scheme + "://" + host + ":" + port + "/" + semivalidPathPattern));
-        } else {
+        } else if (pathPattern.contains("*")) {
             semivalidPathPattern = pathPattern.replace("*", RandomStringUtils.randomAlphabetic(10));
             if (pathPattern.charAt(0) == '/') {
                 mal.setData(Uri.parse(scheme + "://" + host + ":" + port + semivalidPathPattern));
             }
             mal.setData(Uri.parse(scheme + "://" + host + ":" + port + "/" + semivalidPathPattern));
+        } else {
+            semivalidPathPattern = RandomStringUtils.randomAlphabetic(10);
+            if (pathPattern.charAt(0) == '/' || pathPattern.equals("")) {
+                mal.setData(Uri.parse(scheme + "://" + host + ":" + port + semivalidPathPattern));
+            }
+            mal.setData(Uri.parse(scheme + "://" + host + ":" + port + "/" + semivalidPathPattern));
+
         }
 
 
