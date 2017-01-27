@@ -9,22 +9,30 @@ import it.unisannio.security.DoApp.model.IntentDataInfo;
 import it.unisannio.security.DoApp.model.MalIntent;
 
 public class GenericPathPatternPortURIGenrator {
-    public static MalIntent getSemivalidSchemeHostPortPathPatternURIMalIntent(IntentDataInfo datafield){
+    public static MalIntent getSemivalidSchemeHostPortPathPatternURIMalIntent(IntentDataInfo datafield) {
 
         MalIntent mal = new MalIntent(datafield);
         String scheme = datafield.scheme;
         String host = datafield.host;
         String port = datafield.port;
         String pathPattern = datafield.pathPattern;
-        String semivalidPathPattern = pathPattern.replace(".*", RandomStringUtils.randomAlphabetic(10));
+        String semivalidPathPattern;
 
 
-
-
-        if (pathPattern.charAt(0) != '/')
+        if (pathPattern.contains(".*")) {
+            semivalidPathPattern = pathPattern.replace(".*", RandomStringUtils.randomAlphabetic(10));
+            if (pathPattern.charAt(0) == '/') {
+                mal.setData(Uri.parse(scheme + "://" + host + ":" + port + semivalidPathPattern));
+            }
             mal.setData(Uri.parse(scheme + "://" + host + ":" + port + "/" + semivalidPathPattern));
-        else
-            mal.setData(Uri.parse(scheme + "://" + host + ":" + port + semivalidPathPattern));
+        } else {
+            semivalidPathPattern = pathPattern.replace("*", RandomStringUtils.randomAlphabetic(10));
+            if (pathPattern.charAt(0) == '/') {
+                mal.setData(Uri.parse(scheme + "://" + host + ":" + port + semivalidPathPattern));
+            }
+            mal.setData(Uri.parse(scheme + "://" + host + ":" + port + "/" + semivalidPathPattern));
+        }
+
 
         return mal;
     }
