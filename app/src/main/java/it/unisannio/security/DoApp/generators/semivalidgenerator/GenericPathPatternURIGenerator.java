@@ -31,7 +31,7 @@ public class GenericPathPatternURIGenerator {
             mal.setData(Uri.parse(scheme + "://" + host + "/" + semivalidPathPattern));
         } else {
             semivalidPathPattern = RandomStringUtils.randomAlphabetic(10);
-            if (pathPattern.charAt(0) == '/' || pathPattern.equals("")) {
+            if ( pathPattern.equals("") || pathPattern.charAt(0) == '/') {
                 mal.setData(Uri.parse(scheme + "://" + host + semivalidPathPattern));
             }
             mal.setData(Uri.parse(scheme + "://" + host + "/" + semivalidPathPattern));
