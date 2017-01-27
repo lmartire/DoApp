@@ -20,6 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".services.FuzzerService"
             android:exported="false" />
@@ -27,7 +28,9 @@
         <activity android:name=".activities.AppListActivity" />
         <activity android:name=".activities.EndActivity" />
         <activity android:name=".activities.ViewReportActivity" />
-        <activity android:name=".activities.CounterActivity"></activity>
+        <activity android:name=".activities.CounterActivity" />
+        <activity android:name=".activities.CrashedListActivity" />
+        <activity android:name=".activities.ExceptionListActivity"></activity>
     </application>
 
 </manifest>

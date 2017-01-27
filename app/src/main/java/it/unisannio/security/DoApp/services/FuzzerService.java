@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.util.Log;
 
+import it.unisannio.security.DoApp.GlobalClass;
 import it.unisannio.security.DoApp.activities.CounterActivity;
+import it.unisannio.security.DoApp.activities.CrashedListActivity;
 import it.unisannio.security.DoApp.model.Triager;
 import it.unisannio.security.DoApp.util.PackageInfoExtractor;
 import it.unisannio.security.DoApp.util.ReportWriter;
@@ -22,6 +24,7 @@ import it.unisannio.security.DoApp.model.IntentDataInfo;
 import it.unisannio.security.DoApp.util.UnixCommands;
 
 import com.jaredrummler.apkparser.model.AndroidComponent;
+import com.jaredrummler.apkparser.model.IntentFilter;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -34,6 +37,16 @@ import java.util.List;
 public class FuzzerService extends IntentService {
 
     private String pathFile;
+
+    //lista contenente i risultati
+    private List<ExceptionReport> results = new ArrayList<ExceptionReport>();
+
+    //lista contentente tutti i componenti che sono crashati
+    private List<String> crashedComponents = new ArrayList<String>();
+
+    //numero totale di componenti da testare
+    private int totalComponents;
+
     public FuzzerService() {
         super("FuzzerService");
     }
@@ -60,26 +73,38 @@ public class FuzzerService extends IntentService {
 
                 //avvio l'activity finale
 
-                Intent end = new Intent(this, EndActivity.class);
-                end.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                end.putExtra(Commons.pathFile, pathFile);
+                if(crashedComponents.size()>0) {
 
-                startActivity(end);
+                    //condivido i reports con tutta l'applicazione
+                    GlobalClass.reports = results;
 
+                    //avvio l'activity per mostrare i risultati
+                    Intent intentResult = new Intent(this, CrashedListActivity.class);
+                    intentResult.putStringArrayListExtra("crashedComponents", (ArrayList<String>) crashedComponents);
+                    intentResult.putExtra("numberCrashedComponents", crashedComponents.size());
+                    intentResult.putExtra("numberTotalComponents", totalComponents);
+                    intentResult.putExtra(Commons.pathFile, pathFile);
+                    intentResult.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intentResult);
+                }
+                else{
+                    Intent end = new Intent(this, EndActivity.class);
+                    end.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    end.putExtra(Commons.pathFile, pathFile);
+                    startActivity(end);
+                }
             }
         }
     }
 
     private void fuzz(String pkgname){
 
-        //lista contenente i risultati
-        List<ExceptionReport> results = new ArrayList<ExceptionReport>();
-
         Log.i("DoAppLOG", "Analizzo il manifest...");
 
         //recupero la lista dei datatype degli IntentFilter esportati dall'app
         PackageInfoExtractor extractor = new PackageInfoExtractor(this, pkgname);
-        Log.i("DoAppLOG", "Componenti da testare: " + extractor.getNumberComponentWithIntentFilters());
+        totalComponents = extractor.getNumberComponentWithIntentFilters();
+        Log.i("DoAppLOG", "Componenti da testare: " + totalComponents);
 
         List<IntentDataInfo> datas = extractor.extractIntentFiltersDataType();
 
@@ -175,6 +200,10 @@ public class FuzzerService extends IntentService {
                         ex.addMalIntent(malIntent);
                         results.add(ex);
 
+                        //aggiungo il nome del componente alla lista di quelli crashati
+                        if(!crashedComponents.contains(ex.getAppName()))
+                            crashedComponents.add(ex.getAppName());
+
                         Log.i("DoAppLOG", "Trovato crash:");
                         Log.i("DoAppLOG", "\t" + ex.toString());
 
@@ -199,7 +228,7 @@ public class FuzzerService extends IntentService {
             num++;
         }
 
-        //TODO: effettuare il triage sulla lista di ExceptionReport
+
 
         if(results.size()>0) {
             pathFile = ReportWriter.scriviSuFile(results, pkgname);
