@@ -10,19 +10,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="it.unisannio.security.DoApp.activities.AppListActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/textView" />
+
 
     <Button
         android:text="goFuzz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_toEndOf="@+id/textView"
+
         android:layout_marginLeft="65dp"
         android:layout_marginStart="65dp"
         android:id="@+id/button"
@@ -34,7 +29,6 @@
         android:text="APPS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/button"
         android:layout_alignStart="@+id/button"
         android:layout_marginTop="65dp"
