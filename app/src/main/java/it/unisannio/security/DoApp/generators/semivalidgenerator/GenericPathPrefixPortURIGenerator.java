@@ -18,7 +18,7 @@ public class GenericPathPrefixPortURIGenerator {
         String port = datafield.port;
         String pathPrefix = datafield.pathPrefix;
         String semivalidPathPrefix;
-        if(pathPrefix.charAt(pathPrefix.length()-1) != '/')
+        if (pathPrefix.charAt(pathPrefix.length() - 1) != '/')
             semivalidPathPrefix = pathPrefix + "/" + RandomStringUtils.randomAlphanumeric(10);
         else
             semivalidPathPrefix = pathPrefix + RandomStringUtils.randomAlphanumeric(10);

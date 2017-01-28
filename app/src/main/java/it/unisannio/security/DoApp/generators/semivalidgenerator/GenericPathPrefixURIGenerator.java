@@ -15,12 +15,12 @@ public class GenericPathPrefixURIGenerator {
         String host = datafield.host;
         String pathPrefix = datafield.pathPrefix;
         String semivalidPathPrefix;
-        if(pathPrefix.charAt(pathPrefix.length()-1) != '/')
+        if (pathPrefix.charAt(pathPrefix.length() - 1) != '/')
             semivalidPathPrefix = pathPrefix + "/" + RandomStringUtils.randomAlphanumeric(10);
         else
             semivalidPathPrefix = pathPrefix + RandomStringUtils.randomAlphanumeric(10);
 
-        mal.setData(Uri.parse(scheme + "://" + host  + semivalidPathPrefix));
+        mal.setData(Uri.parse(scheme + "://" + host + semivalidPathPrefix));
         return mal;
     }
 }
