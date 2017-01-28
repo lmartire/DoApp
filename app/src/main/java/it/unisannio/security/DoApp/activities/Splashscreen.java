@@ -10,20 +10,19 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.hanks.htextview.HTextView;
-import com.hanks.htextview.HTextViewType;
-
 import it.unisannio.security.DoApp.R;
 
 public class Splashscreen extends Activity {
-    HTextView hTextView;
-    HTextView hTextView2;
+
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         Window window = getWindow();
         window.setFormat(PixelFormat.RGBA_8888);
     }
-    /** Called when the activity is first created. */
+
+    /**
+     * Called when the activity is first created.
+     */
     Thread splashTread;
 
     @Override
@@ -31,26 +30,20 @@ public class Splashscreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
 
-        hTextView = (HTextView) findViewById(R.id.text);
-
-
 
         StartAnimations();
 
     }
+
     private void StartAnimations() {
-
-
 
 
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
         anim.reset();
-        LinearLayout l=(LinearLayout) findViewById(R.id.lin_lay);
+        LinearLayout l = (LinearLayout) findViewById(R.id.lin_lay);
         l.clearAnimation();
         l.startAnimation(anim);
         anim = AnimationUtils.loadAnimation(this, R.anim.rotate);
-        hTextView.setAnimateType(HTextViewType.SCALE);
-        hTextView.animateText("DoApp");
         anim.reset();
 
         ImageView iv = (ImageView) findViewById(R.id.splash);
