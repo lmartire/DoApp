@@ -11,30 +11,16 @@
     tools:context="it.unisannio.security.DoApp.activities.AppListActivity">
 
 
-
-    <Button
-        android:text="goFuzz"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-
-        android:layout_marginLeft="65dp"
-        android:layout_marginStart="65dp"
-        android:id="@+id/button"
-        android:elevation="9dp"
-        android:onClick="fuzzerService"
-        android:contextClickable="false" />
-
     <Button
         android:text="APPS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button"
-        android:layout_marginTop="65dp"
         android:id="@+id/button3"
         style="@style/Widget.AppCompat.Button"
-        android:onClick="goAppList" />
+        android:onClick="goAppList"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="203dp" />
 
 
 </RelativeLayout>

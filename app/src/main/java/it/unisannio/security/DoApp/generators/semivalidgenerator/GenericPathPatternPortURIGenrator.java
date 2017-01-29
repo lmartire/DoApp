@@ -20,13 +20,13 @@ public class GenericPathPatternPortURIGenrator {
 
 
         if (pathPattern.contains(".*")) {
-            semivalidPathPattern = pathPattern.replace(".*", RandomStringUtils.randomAlphabetic(10));
+            semivalidPathPattern = pathPattern.replaceAll("\\.*", RandomStringUtils.randomAlphabetic(10));
             if (pathPattern.charAt(0) == '/') {
                 mal.setData(Uri.parse(scheme + "://" + host + ":" + port + semivalidPathPattern));
             }
             mal.setData(Uri.parse(scheme + "://" + host + ":" + port + "/" + semivalidPathPattern));
         } else if (pathPattern.contains("*")) {
-            semivalidPathPattern = pathPattern.replace("*", RandomStringUtils.randomAlphabetic(10));
+            semivalidPathPattern = pathPattern.replaceAll("\\*", RandomStringUtils.randomAlphabetic(10));
             if (pathPattern.charAt(0) == '/') {
                 mal.setData(Uri.parse(scheme + "://" + host + ":" + port + semivalidPathPattern));
             }

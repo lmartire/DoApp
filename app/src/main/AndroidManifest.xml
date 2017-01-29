@@ -12,7 +12,7 @@
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/DoApp">
         <activity android:name=".activities.Splashscreen"
             android:label="@string/app_name">
             <intent-filter>

@@ -18,13 +18,13 @@ public class GenericPathPatternURIGenerator {
         String semivalidPathPattern;
 
         if (pathPattern.contains(".*")) {
-            semivalidPathPattern = pathPattern.replace(".*", RandomStringUtils.randomAlphabetic(10));
+            semivalidPathPattern = pathPattern.replaceAll("\\.\\*", RandomStringUtils.randomAlphabetic(10));
             if (pathPattern.charAt(0) == '/') {
                 mal.setData(Uri.parse(scheme + "://" + host + semivalidPathPattern));
             }
             mal.setData(Uri.parse(scheme + "://" + host + "/" + semivalidPathPattern));
         } else if (pathPattern.contains("*")) {
-            semivalidPathPattern = pathPattern.replace("*", RandomStringUtils.randomAlphabetic(10));
+            semivalidPathPattern = pathPattern.replaceAll("\\*", RandomStringUtils.randomAlphabetic(10));
             if (pathPattern.charAt(0) == '/') {
                 mal.setData(Uri.parse(scheme + "://" + host + semivalidPathPattern));
             }
