@@ -64,6 +64,7 @@ public class ViewReportActivity extends AppCompatActivity {
         edit.setTag(edit.getKeyListener());
         edit.setKeyListener(null);
         edit.setText(text.toString());
+        edit.setTextColor(Color.DKGRAY);
     }
 
     @Override
