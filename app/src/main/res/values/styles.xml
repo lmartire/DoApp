@@ -5,11 +5,17 @@
 
         <!-- Customize your theme here. -->
 
-      <item name="colorPrimary">@color/colorPrimary</item>
-      <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-      <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/green_android</item>
+        <item name="android:textColor">@color/green_android</item>
+        <item name="titleTextColor">@color/green_android</item>
+        <item name="android:colorBackground">@color/foreground_material_dark_1</item>
+        <item name="actionMenuTextColor">@color/green_android</item>
 
- </style>
+
+    </style>
+
 
 
 </resources>
