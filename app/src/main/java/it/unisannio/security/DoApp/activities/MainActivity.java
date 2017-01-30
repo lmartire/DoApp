@@ -22,15 +22,6 @@ public class MainActivity extends AppCompatActivity {
         getSU();
     }
 
-    public void fuzzerService(View v) throws FileNotFoundException, InterruptedException {
-
-        Intent i = new Intent(this, FuzzerService.class);
-
-        //TODO: sta roba deve venire da una lista di scelta dell'app
-        i.putExtra(Commons.pkgName, "com.project.antonyflour.intentfilterex");
-        startService(i);
-
-    }
 
     public void goAppList (View v){
         Intent i = new Intent(this, AppListActivity.class);

@@ -6,5 +6,7 @@
         android:id="@+id/textViewComponent"
         android:layout_weight="5"
      android:backgroundTint="@android:color/holo_green_light"
-     android:background="@android:color/holo_green_light" />
+     android:background="@android:color/holo_green_light"
+     android:textColor="@color/colorPrimary"
+    />
 

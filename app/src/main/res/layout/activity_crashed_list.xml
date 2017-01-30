@@ -55,5 +55,7 @@
         android:text="@string/button_report_string"
         android:layout_width="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:onClick="startViewReportActivity" />
+        android:onClick="startViewReportActivity"
+        android:textColor="@color/colorPrimary"
+        />
 </LinearLayout>

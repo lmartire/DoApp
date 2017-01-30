@@ -1,5 +1,6 @@
 package it.unisannio.security.DoApp.activities;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -17,5 +18,6 @@ public class CounterActivity extends AppCompatActivity {
 
         tv = (TextView) findViewById(R.id.textView3);
         tv.setText(getIntent().getStringExtra("msg"));
+        tv.setTextColor(Color.WHITE);
     }
 }

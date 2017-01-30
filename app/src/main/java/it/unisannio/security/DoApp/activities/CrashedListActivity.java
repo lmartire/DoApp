@@ -1,8 +1,12 @@
 package it.unisannio.security.DoApp.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -42,6 +46,7 @@ public class CrashedListActivity extends AppCompatActivity {
         text = StringUtils.replaceOnce(text, "$", totalComponents);
 
         tvResult.setText(text);
+        tvResult.setTextColor(Color.WHITE);
 
         ArrayList<String> crashedComponents = getIntent().getStringArrayListExtra("crashedComponents");
 
@@ -69,5 +74,25 @@ public class CrashedListActivity extends AppCompatActivity {
         Intent i = new Intent(this,ViewReportActivity.class);
         i.putExtra(Commons.pathFile, pathfile);
         startActivity(i);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_edit, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_edit:
+                Intent i = new Intent(this, MainActivity.class);
+                startActivity(i);
+                return true;
+            default:
+                return false;
+        }
     }
 }

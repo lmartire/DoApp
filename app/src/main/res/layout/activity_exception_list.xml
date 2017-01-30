@@ -18,10 +18,11 @@
         android:layout_height="0dp"
         android:layout_weight="5"
         android:id="@+id/textViewTitle"
-        android:textColor="@android:color/black"
         android:textSize="18sp"
         android:gravity="center_vertical|center_horizontal"
-        android:textAlignment="textStart" />
+        android:textAlignment="textStart"
+        android:textColor="@color/green_android"
+        />
 
 
     <TextView
@@ -30,7 +31,7 @@
         android:layout_height="0dp"
         android:layout_weight="10"
         android:id="@+id/textViewComponentName"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="14sp"
         android:textAlignment="gravity"
         android:gravity="center_vertical|center_horizontal"
@@ -44,10 +45,10 @@
         android:layout_height="0dp"
         android:layout_weight="5"
         android:id="@+id/textViewException"
-        android:textColor="@android:color/black"
         android:textSize="18sp"
         android:gravity="center_vertical|center_horizontal"
-        android:textAlignment="textStart" />
+        android:textAlignment="textStart"
+        android:textColor="?attr/colorButtonNormal" />
 
     <ExpandableListView
         android:layout_width="match_parent"
