@@ -10,13 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="it.unisannio.security.DoApp.activities.AppListActivity">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/splash"
-        android:layout_gravity="center"
-        android:background="@drawable/logo" />
-
 
     <Button
         android:text="APPS"
@@ -29,6 +22,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="203dp"
         android:textColor="#212121" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/splash"
+        android:layout_gravity="center"
+        android:background="@drawable/logo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
