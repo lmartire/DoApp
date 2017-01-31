@@ -18,6 +18,8 @@ public class GenericPathURIGenerator {
         String path = datafield.path;
         String semiValidPath;
 
+        host = host.replace("*", RandomStringUtils.randomAlphanumeric(10));
+
         if (!path.isEmpty() && path.charAt(0) == '/')
             semiValidPath = path + "/" + RandomStringUtils.randomAlphanumeric(10);
         else

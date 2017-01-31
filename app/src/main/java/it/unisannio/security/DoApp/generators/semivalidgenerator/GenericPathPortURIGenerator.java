@@ -13,7 +13,10 @@ public class GenericPathPortURIGenerator {
 
         MalIntent mal = new MalIntent(datafield);
         String scheme = datafield.scheme;
+
         String host = datafield.host;
+        host = host.replace("*", RandomStringUtils.randomAlphanumeric(10));
+
         String port = datafield.port;
         String path = datafield.path;
         String semiValidPath;

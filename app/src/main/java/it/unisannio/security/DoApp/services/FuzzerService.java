@@ -104,17 +104,17 @@ public class FuzzerService extends IntentService {
         //recupero la lista dei datatype degli IntentFilter esportati dall'app
         PackageInfoExtractor extractor = new PackageInfoExtractor(this, pkgname);
         totalComponents = extractor.getNumberComponentWithIntentFilters();
-        Log.i("DoAppLOG", "Componenti da testare: " + totalComponents);
+        Log.i("DoAppLOG", "Components under test: " + totalComponents);
 
         List<IntentDataInfo> datas = extractor.extractIntentFiltersDataType();
 
 
-        Log.i("DoAppLOG", "Creo i MalIntent...");
+        Log.i("DoAppLOG", "MalIntent creation...");
 
         //ottengo la lista degli intent malevoli
         List<MalIntent> malIntents = MalIntentGenerator.createFromIntentData(datas);
 
-        Log.i("DoAppLOG", "Creati " + malIntents.size()+" MalIntent:");
+        Log.i("DoAppLOG", "" + malIntents.size()+" MalIntent created:");
 
         //log per conoscere i malintent creati
         int counter = 1;
@@ -131,7 +131,7 @@ public class FuzzerService extends IntentService {
         for(MalIntent malIntent : malIntents){
 
 
-            Log.i("DoAppLOG", "Invio MalIntent n."+ num);
+            Log.i("DoAppLOG", "Send MalIntent n."+ num);
             Log.i("DoAppLOG", "\t"+ malIntent.toString());
 
             //invio l'intent malevolo
@@ -167,7 +167,7 @@ public class FuzzerService extends IntentService {
             SystemClock.sleep(1000);
 
             //analizzo il logcat alla ricerca di un crash
-            Log.i("DoAppLOG", "Analizzo LogCat...");
+            Log.i("DoAppLOG", "LogCat Analysis...");
             List<String> lines = UnixCommands.readLogCat();
 
             LogCatMessageParser parser = new LogCatMessageParser();
@@ -186,7 +186,7 @@ public class FuzzerService extends IntentService {
             String pidsString="";
             for(Integer i : appPIDs)
                 pidsString += (" "+i.toString());
-            Log.i("DoAppLOG", "PID dell'app: "+pidsString);
+            Log.i("DoAppLOG", "Application PID: "+pidsString);
 
             for(ExceptionReport ex : reports){
 
@@ -204,7 +204,7 @@ public class FuzzerService extends IntentService {
                         if(!crashedComponents.contains(ex.getAppName()))
                             crashedComponents.add(ex.getAppName());
 
-                        Log.i("DoAppLOG", "Trovato crash:");
+                        Log.i("DoAppLOG", "Crash found:");
                         Log.i("DoAppLOG", "\t" + ex.toString());
 
                         lastTime = ex.getTime();
@@ -220,7 +220,7 @@ public class FuzzerService extends IntentService {
             SystemClock.sleep(200);
 
             Intent intermediate = new Intent(this, CounterActivity.class);
-            intermediate.putExtra("msg", "Inviato n." + num + " Intent su "+malIntents.size());
+            intermediate.putExtra("msg", "Sent n." + num + " Intent of "+malIntents.size());
             intermediate.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intermediate);
 
@@ -237,7 +237,7 @@ public class FuzzerService extends IntentService {
         }
 
 
-        Log.i("DoAppLOG", "Fuzzing Completato!");
+        Log.i("DoAppLOG", "Fuzzing Complete!");
     }
 
 

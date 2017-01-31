@@ -13,7 +13,11 @@ public class GenericHostURIGenerator {
 
         MalIntent mal = new MalIntent(datafield);
         String scheme = datafield.scheme;
-        String semivalidHost = datafield.host + "/" + RandomStringUtils.randomAlphanumeric(10);
+
+        String host = datafield.host;
+        host = host.replace("*", RandomStringUtils.randomAlphanumeric(10));
+
+        String semivalidHost = host + "/" + RandomStringUtils.randomAlphanumeric(10);
         mal.setData(Uri.parse(scheme + "://" + semivalidHost));
         return mal;
     }

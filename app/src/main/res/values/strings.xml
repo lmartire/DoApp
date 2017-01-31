@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">DoApp-Denial of App</string>
-    <string name="final_msg">Sono crashati n.$ componenti su $</string>
+    <string name="final_msg">n.$ components of $ are crashed!</string>
     <string name="button_report_string">go to the complete report</string>
 </resources>

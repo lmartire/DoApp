@@ -123,8 +123,8 @@ public class ExceptionReport {
         return "ExceptionReport: "+
                 "\n\t Package Name: "+processName+
                 "\n\t Component Name: "+appName+
-                "\n\t PID del crash: "+PID+
-                "\n\t"+ ((malintent_string.isEmpty())?"Impossibile recuperare MalIntent" : malintent_string) +
+                "\n\t Crash PID: "+PID+
+                "\n\t"+ ((malintent_string.isEmpty())?"MalIntent Unknown" : malintent_string) +
                 "\n\t" + "ExceptionType: "+type+"" +
                 "\n\t Stacktrace: \n"+stack_string;
     }

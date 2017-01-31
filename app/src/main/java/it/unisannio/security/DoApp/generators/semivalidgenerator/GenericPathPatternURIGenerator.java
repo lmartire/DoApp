@@ -13,7 +13,10 @@ public class GenericPathPatternURIGenerator {
 
         MalIntent mal = new MalIntent(datafield);
         String scheme = datafield.scheme;
+
         String host = datafield.host;
+        host = host.replace("*", RandomStringUtils.randomAlphanumeric(10));
+
         String pathPattern = datafield.pathPattern;
         String semivalidPathPattern;
 

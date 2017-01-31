@@ -4,6 +4,6 @@
 
     <item
         android:id="@+id/action_edit"
-        android:title="Nuovo fuzz"
+        android:title="New fuzz"
         app:showAsAction="always"/>
 </menu>
