@@ -96,7 +96,7 @@ public class AppListActivity extends AppCompatActivity {
                 int testingComponent = extractor.getNumberComponentWithIntentFilters();
 
                 if(testingComponent==0){
-                    Toast.makeText(AppListActivity.this, "Intent-filter non presenti!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AppListActivity.this, "Intent-filters not found!", Toast.LENGTH_LONG).show();
                 }
                 else {
                     Intent i = new Intent(AppListActivity.this, FuzzerService.class);

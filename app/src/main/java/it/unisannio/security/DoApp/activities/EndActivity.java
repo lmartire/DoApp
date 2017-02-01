@@ -1,6 +1,7 @@
 package it.unisannio.security.DoApp.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -31,13 +32,13 @@ public class EndActivity extends AppCompatActivity {
         Intent i = getIntent();
         pathFile = i.getStringExtra(Commons.pathFile);
         if(pathFile == null){
-            textView.setText("Non è stato generato alcun report\nNon si sono verificati crash!");
+            textView.setText("The app didn't crash.\n No report generated");
             button.setVisibility(View.INVISIBLE);
             button.setClickable(false);
         }
         else {
-            textView.setText("L'app è crashata. Per maggiori info vai" +
-                    " al percorso\n"+pathFile+"\nOppure clicca il bottone");
+            textView.setText("The app was crashed");
+
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent i = new Intent(EndActivity.this,ViewReportActivity.class);
@@ -45,8 +46,8 @@ public class EndActivity extends AppCompatActivity {
                     startActivity(i);
                 }
             });
-
         }
+        textView.setTextColor(Color.WHITE);
     }
 
     @Override

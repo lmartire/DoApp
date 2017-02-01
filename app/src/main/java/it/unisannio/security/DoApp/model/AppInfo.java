@@ -73,9 +73,14 @@ public class AppInfo {
 
         for(int i=0;i<packages.size();i++) {
             PackageInfo packageInfo = packages.get(i);
+
             //prendiamo solo le app che NON sono di sistema
-            if((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0)
+            if((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0
+                    && !packageInfo.packageName.equalsIgnoreCase("it.unisannio.security.DoApp")
+                    )
                     pkgInfoList.add(fillAppInfo(packageInfo, context));
+
+
         }
         return pkgInfoList;
     }
