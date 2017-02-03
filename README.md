@@ -19,3 +19,18 @@ Our project is born after an evaluation of the existing tools in the same applic
  - Supervisor: Prof. Aaron C. Visaggio (University of Sannio BN IT)
 
 View the article: http://www.iswatlab.eu/?page_id=470
+<br>
+#Usage
+![Alt text](https://github.com/lmartire/DoApp/blob/master/screen/screen-splashscreen.jpg)
+![Alt text](https://github.com/lmartire/DoApp/blob/master/screen/screen-mainActivity.png)
+<br><br>
+Select your target app
+<br><br>
+![Alt text](https://github.com/lmartire/DoApp/blob/master/screen/screen-applist.JPG)
+<br><br>
+The target app is crashed :)
+<br><br>
+![Alt text](https://github.com/lmartire/DoApp/blob/master/screen/screen-crash.png)
+<br>
+<br>
+#__... And view the generated report!__
