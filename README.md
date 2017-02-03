@@ -18,3 +18,4 @@ Our project is born after an evaluation of the existing tools in the same applic
  - Team Leader: Ing. Antonio Pirozzi (University of Sannio BN IT)
  - Supervisor: Prof. Aaron C. Visaggio (University of Sannio BN IT)
 
+View the article: http://www.iswatlab.eu/?page_id=470
