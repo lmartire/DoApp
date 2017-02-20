@@ -64,25 +64,28 @@ public class AppInfo {
     public static List<AppInfo> getPackageInfo(Context context){
         List<AppInfo> pkgInfoList = new ArrayList<AppInfo>();
 
-        List<PackageInfo> packages = context.getPackageManager().getInstalledPackages(
-                          PackageManager.GET_DISABLED_COMPONENTS
-                        | PackageManager.GET_ACTIVITIES
-                        | PackageManager.GET_RECEIVERS
-                        | PackageManager.GET_SERVICES
-                        );
+        List<ApplicationInfo> pkgAppsList = context.getApplicationContext().getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
 
-        for(int i=0;i<packages.size();i++) {
-            PackageInfo packageInfo = packages.get(i);
+        for(int i=0; i<pkgAppsList.size(); i++){
+            ApplicationInfo applicationInfo = pkgAppsList.get(i);
 
             //prendiamo solo le app che NON sono di sistema
-            if((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0
-                    && !packageInfo.packageName.equalsIgnoreCase("it.unisannio.security.DoApp")
-                    )
-                    pkgInfoList.add(fillAppInfo(packageInfo, context));
-
+            if((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM)==0 && applicationInfo.packageName != null &&
+                    !applicationInfo.packageName.equalsIgnoreCase("it.unisannio.security.DoApp"))
+                try{
+                    PackageInfo pkg = context.getPackageManager().getPackageInfo(applicationInfo.packageName,
+                            PackageManager.GET_DISABLED_COMPONENTS
+                                    | PackageManager.GET_ACTIVITIES
+                                    | PackageManager.GET_RECEIVERS
+                                    | PackageManager.GET_SERVICES );
+                    pkgInfoList.add(fillAppInfo(pkg, context.getApplicationContext()));
+                } catch(PackageManager.NameNotFoundException e){
+                    Log.e("DoAppLOG", "namenotfound - AppInfo.java:83");
+                }
 
         }
         return pkgInfoList;
+
     }
 
     private static AppInfo fillAppInfo(PackageInfo packageInfo, Context context) {
